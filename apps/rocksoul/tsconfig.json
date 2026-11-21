@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "exactOptionalPropertyTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2022",
+    "types": ["vite/client"],
+    "maxNodeModuleJsDepth": 0
+  },
+  "include": [
+    "src/**/*"
+  ]
+}

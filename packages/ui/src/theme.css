@@ -1,0 +1,101 @@
+:root {
+  --background: #0b0d14;
+  --foreground: #f4f1e8;
+  --card: #121622;
+  --card-foreground: #f4f1e8;
+  --popover: #141928;
+  --popover-foreground: #f4f1e8;
+  --primary: #dfc07b;
+  --primary-foreground: #090b10;
+  --secondary: #22293d;
+  --secondary-foreground: #f4f1e8;
+  --muted: #181d2c;
+  --muted-foreground: #a5a096;
+  --accent: #38bdf8;
+  --accent-foreground: #070910;
+  --destructive: #ef4444;
+  --destructive-foreground: #fff5f5;
+  --border: #2a3147;
+  --input: #232a3d;
+  --ring: #dfc07b;
+  --line: #2a3147;
+  --radius: 0.25rem;
+
+  --ink: #070910;
+  --paper: #f6f2e7;
+  --pink: #ff4f9a;
+  --blue: #3b82f6;
+  --yellow: #facc15;
+  --green: #34d399;
+  --red: #f87171;
+
+  --dna-canvas: #070910;
+  --dna-surface: #101420;
+  --dna-surface-elevated: #171d2e;
+  --dna-text: #f7f2e3;
+  --dna-muted: #b8b09c;
+  --dna-border: rgba(223, 192, 123, 0.28);
+  --dna-accent: #dfc07b;
+  --dna-accent-secondary: #4f8cff;
+  --dna-success: #34d399;
+  --dna-warning: #f59e0b;
+  --dna-danger: #f87171;
+
+  --brand-pink: #ff4f9a;
+  --brand-blue: #3b82f6;
+  --brand-ink: #070910;
+  --brand-paper: #f7f2e3;
+  --brand-yellow: #facc15;
+
+  --font-sans-ui: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans Hebrew", "Noto Sans Arabic", sans-serif;
+  --font-serif-editorial: var(--font-cormorant), "Cormorant Garamond", Georgia, "Times New Roman", "Noto Serif Hebrew", "Noto Naskh Arabic", "Noto Serif", serif;
+  --font-comic-display: var(--font-bangers), var(--font-archivo-black), Impact, "Arial Black", sans-serif;
+  --font-mono-code: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+[data-mode="light"] {
+  --background: #f6f3eb;
+  --foreground: #141722;
+  --card: #ffffff;
+  --card-foreground: #141722;
+  --popover: #ffffff;
+  --popover-foreground: #141722;
+  --primary: #9a6b16;
+  --primary-foreground: #fffdf7;
+  --secondary: #e7e1d3;
+  --secondary-foreground: #141722;
+  --muted: #ede8dc;
+  --muted-foreground: #555966;
+  --accent: #1d4ed8;
+  --accent-foreground: #ffffff;
+  --border: #d4cbb8;
+  --input: #d4cbb8;
+  --line: #d4cbb8;
+}
+
+[data-skin="riot"] {
+  --primary: #ff4f9a;
+  --primary-foreground: #070910;
+  --accent: #facc15;
+  --border: #3a2d4c;
+}
+
+[data-skin="editorial"] {
+  --primary: #e5c67d;
+  --accent: #93c5fd;
+}
+
+[data-skin="technical"] {
+  --primary: #38bdf8;
+  --accent: #34d399;
+}
+
+[data-skin="archive"] {
+  --primary: #d9b672;
+  --accent: #a78bfa;
+}
+
+[data-skin="transmission"] {
+  --primary: #22d3ee;
+  --accent: #f472b6;
+}

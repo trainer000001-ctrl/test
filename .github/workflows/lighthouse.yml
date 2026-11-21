@@ -1,0 +1,129 @@
+name: Lighthouse CI
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web
+        working-directory: ./apps/web
+        run: pnpm build
+
+      - name: Run Lighthouse CI
+        working-directory: ./apps/web
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const net = require("node:net");
+            const path = require("node:path");
+            const s = net.createServer();
+            s.listen(0, "127.0.0.1", () => {
+              const { port } = s.address();
+              s.close(() => {
+                const cfg = JSON.parse(fs.readFileSync("lighthouserc.json", "utf8"));
+                cfg.ci.collect.startServerCommand = `PORT=${port} pnpm --filter @moonwitness/web start`;
+                cfg.ci.collect.url = cfg.ci.collect.url.map((u) => u.replace(":3000", `:${port}`));
+                cfg.ci.upload.outputDir = path.resolve(process.cwd(), ".lighthouseci");
+                fs.writeFileSync(path.join(process.env.RUNNER_TEMP, "lighthouserc.json"), JSON.stringify(cfg));
+              });
+            });
+          '
+          pnpm exec lhci autorun --config="$RUNNER_TEMP/lighthouserc.json"
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lighthouse-report
+          path: apps/web/.lighthouseci
+          include-hidden-files: true
+          retention-days: 30
+
+  comment:
+    name: Post Lighthouse Results
+    needs: lighthouse
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Download Lighthouse report
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
+
+      - name: Post Lighthouse results
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            if (!fs.existsSync('.lighthouseci')) {
+              console.log('No .lighthouseci folder found');
+              return;
+            }
+            const files = fs.readdirSync('.lighthouseci');
+            const reportFile = files.find(f => /^lhr-.*\.json$/.test(f));
+
+            if (!reportFile) {
+              console.log('Lighthouse report was not found in the artifact');
+              return;
+            }
+            const report = JSON.parse(fs.readFileSync(path.join('.lighthouseci', reportFile), 'utf8'));
+            const lhr = report.lhr || report;
+
+            const metrics = {
+              'Performance': lhr.categories.performance.score * 100,
+              'Accessibility': lhr.categories.accessibility.score * 100,
+              'Best Practices': lhr.categories['best-practices'].score * 100,
+              'SEO': lhr.categories.seo.score * 100,
+              'PWA': lhr.categories.pwa ? lhr.categories.pwa.score * 100 : 'N/A',
+            };
+
+            let message = '## 🏎️ Lighthouse CI Results\n\n';
+            Object.entries(metrics).forEach(([key, value]) => {
+              const emoji = typeof value === 'number' && value >= 90 ? '✅' : (typeof value === 'number' && value >= 50 ? '⚠️' : '❌');
+              message += `${emoji} **${key}:** ${typeof value === 'number' ? value.toFixed(1) + '%' : value}\n`;
+            });
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: message,
+            });

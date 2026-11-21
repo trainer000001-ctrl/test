@@ -1,0 +1,299 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+  pull_request:
+    branches: [dev, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify (lint, typecheck, test, build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      # pnpm disediakan lewat corepack (bawaan Node) supaya tidak bergantung
+      # pada action pihak ketiga yang bisa diblokir allowlist organisasi.
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm --version
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Docs Governance
+        run: |
+          pnpm docs:test
+          pnpm docs:check
+
+      - name: Compose Configuration
+        env:
+          POSTGRES_PASSWORD: ci-compose-postgres-password
+          MID_KEY_ENCRYPTION_SECRET: ci-compose-mid-key-encryption-secret
+          STORAGE_ACCESS_KEY: ci-compose-storage-access-key
+          STORAGE_SECRET_KEY: ci-compose-storage-secret-key
+        run: docker compose --profile ops config -q
+
+      - name: Format
+        run: pnpm format:check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck --force
+
+      - name: Test
+        run: pnpm test
+
+      - name: Cross-World WCAG Contrast Guard
+        run: pnpm ui:contrast
+
+      - name: Build
+        run: pnpm build
+
+      - name: Conventional commits (pull requests)
+        if: github.event_name == 'pull_request'
+        run: node scripts/commitlint.mjs --range "${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}"
+
+  arsy:
+    name: Verify arsy control plane (Go)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Go
+        uses: actions/setup-go@41dfa10bad2bb2ae585af6ee5bb4d7d973ad74ed # v5.1.0
+        with:
+          go-version-file: cp/arsy/go.mod
+
+      - name: Build
+        working-directory: cp/arsy
+        run: go build ./...
+
+      - name: Vet
+        working-directory: cp/arsy
+        run: go vet ./...
+
+      - name: Test
+        working-directory: cp/arsy
+        run: go test ./... -count=1
+
+  storage:
+    name: Verify storage service (Rust)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+
+      - name: Format
+        working-directory: services/storage
+        run: cargo fmt --check
+
+      - name: Clippy
+        working-directory: services/storage
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Test
+        working-directory: services/storage
+        run: cargo test
+
+  syslog:
+    name: Verify syslog service (Rust)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+
+      - name: Format
+        working-directory: services/syslog
+        run: cargo fmt --check
+
+      - name: Clippy
+        working-directory: services/syslog
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Test
+        working-directory: services/syslog
+        run: cargo test
+
+  snmp-poller:
+    name: Verify snmp-poller service (Rust)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+
+      - name: Format
+        working-directory: services/snmp-poller
+        run: cargo fmt --check
+
+      - name: Clippy
+        working-directory: services/snmp-poller
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Test
+        working-directory: services/snmp-poller
+        run: cargo test
+
+  radius:
+    name: Verify radius service (Rust)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+
+      - name: Format
+        working-directory: services/radius
+        run: cargo fmt --check
+
+      - name: Clippy
+        working-directory: services/radius
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Test
+        working-directory: services/radius
+        run: cargo test
+
+  rocksoul-tauri:
+    name: Verify RockSoul Desktop (Rust)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Tauri Linux Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libssl-dev pkg-config
+
+      - name: Setup Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+
+      - name: Check & Test
+        working-directory: apps/rocksoul/src-tauri
+        run: |
+          cargo check --tests
+          cargo test --lib
+
+  memory:
+    name: Verify Memory Service (Python)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: services/memory/backend/requirements.txt
+
+      - name: Install & Test
+        working-directory: services/memory/backend
+        env:
+          DATA_DIR: ${{ runner.temp }}/memory-data
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m pytest -q
+
+  postgres-integration:
+    name: Verify PostgreSQL ORM & Backup Integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: moonwitness
+          POSTGRES_PASSWORD: moonwitness
+          POSTGRES_DB: moonwitness
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U moonwitness -d moonwitness"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Install postgresql-client for pg_dump verification
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends postgresql-client
+
+      - name: Run Live PostgreSQL ORM, Conformance & Backup Integration Tests
+        env:
+          POSTGRES_TEST_URL: postgresql://moonwitness:moonwitness@127.0.0.1:5432/moonwitness
+          TEST_POSTGRES_URL: postgresql://moonwitness:moonwitness@127.0.0.1:5432/moonwitness
+        run: |
+          pnpm test:conformance:pg
+          pnpm --filter @moonwitness/orm test
+          node --test scripts/backup-db.test.mjs

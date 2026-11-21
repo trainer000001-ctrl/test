@@ -1,0 +1,41 @@
+{
+  "name": "@moonwitness/edge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build && wrangler dev",
+    "dev:ui": "vite",
+    "build": "vite build && tsc --noEmit",
+    "deploy": "vite build && wrangler deploy",
+    "deploy:dry-run": "vite build && wrangler deploy --dry-run",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "clean": "rm -rf .wrangler dist node_modules"
+  },
+  "dependencies": {
+    "@moonwitness/addon-runtime": "workspace:*",
+    "@moonwitness/addons": "workspace:*",
+    "@moonwitness/orm": "workspace:*",
+    "@moonwitness/ui": "workspace:*",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250411.0",
+    "@moonwitness/eslint-config": "workspace:*",
+    "@tailwindcss/vite": "^4.3.5",
+    "@types/node": "^24.10.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.0.2",
+    "eslint": "^10.14.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.4",
+    "vitest": "^4.1.12",
+    "wrangler": "^4.14.0"
+  }
+}

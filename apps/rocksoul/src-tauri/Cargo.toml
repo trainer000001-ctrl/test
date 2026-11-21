@@ -1,0 +1,30 @@
+[package]
+name = "rocksoul-dx"
+version = "0.1.0"
+description = "Local-first development command center"
+authors = ["ROCKSOUL"]
+edition = "2021"
+
+[lib]
+name = "rocksoul_dx_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.32", features = ["backup", "bundled"] }
+uuid = { version = "1", features = ["v4", "serde"] }
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "multipart", "rustls-tls"] }
+base64 = "0.22"
+chacha20poly1305 = "0.10"
+chrono = { version = "0.4", default-features = false, features = ["clock", "serde"] }
+open = "5"
+quick-xml = "0.42"
+rand = "0.8"
+serde_urlencoded = "0.7"
+sha2 = "0.10"
+url = "2"

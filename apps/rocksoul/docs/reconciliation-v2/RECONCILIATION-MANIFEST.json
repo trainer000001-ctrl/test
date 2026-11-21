@@ -1,0 +1,46 @@
+{
+  "name": "ROCKSOUL Desktop Reconciliation Pack",
+  "repository": "A-L-L-A-H/moonwitness",
+  "branch": "dev",
+  "baseline_commit": "fa723f76108a83428df45a44363cf652d6c29cf0",
+  "inspected_at": "2026-11-18",
+  "product_decision": {
+    "identity": "hybrid_living_companion_and_autonomous_operator",
+    "autonomy": "autonomous_with_explicit_owner_defined_policy",
+    "priority": [
+      "engineering",
+      "creative"
+    ]
+  },
+  "archive_contains": [
+    ".plan/rocksoul-v2/00-baseline-and-doc-reconciliation.md",
+    ".plan/rocksoul-v2/01-contracts-and-safety.md",
+    ".plan/rocksoul-v2/02-continuity-and-memory.md",
+    ".plan/rocksoul-v2/03-safe-agent-execution.md",
+    ".plan/rocksoul-v2/04-orchestration-and-autonomy.md",
+    ".plan/rocksoul-v2/05-human-pen-and-research.md",
+    ".plan/rocksoul-v2/06-living-companion-and-release.md",
+    "AI-LOCAL-EXECUTION-PROMPT.md",
+    "AUTONOMY-AND-SECURITY.md",
+    "CURRENT-STATE-RECONCILIATION.md",
+    "ISSUE-BACKLOG.md",
+    "PASTE-INSTRUCTIONS.md",
+    "PRODUCT-BLUEPRINT.md",
+    "README-PASTE-FIRST.md",
+    "ROADMAP.md",
+    "SOURCE-BASELINE.md",
+    "TARGET-ARCHITECTURE.md"
+  ],
+  "source_urls": [
+    "https://github.com/A-L-L-A-H/moonwitness/tree/dev/apps/rocksoul",
+    "https://github.com/A-L-L-A-H/moonwitness/blob/dev/docs/architecture/adr-006-three-app-topology-and-trust-zones.md",
+    "https://github.com/A-L-L-A-H/moonwitness/blob/dev/docs/architecture/RUNTIME-SERVICE-INVENTORY.md",
+    "https://github.com/A-L-L-A-H/moonwitness/blob/dev/WORK_PLAN.md",
+    "https://github.com/A-L-L-A-H/moonwitness/pull/252"
+  ],
+  "notes": [
+    "Planning package only; no repository code or GitHub issue was modified.",
+    "All dated test results remain dated evidence and must be rerun locally.",
+    "AI CLI execution is deferred in the current app docs; legacy SQL tables are not proof of a live agent runtime."
+  ]
+}

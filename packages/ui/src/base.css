@@ -1,0 +1,115 @@
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans-ui);
+  }
+}
+
+.font-brush {
+  font-family: var(--font-comic-display);
+  letter-spacing: 0.03em;
+}
+
+.font-hand {
+  font-family: var(--font-serif-editorial);
+}
+
+.font-mono {
+  font-family: var(--font-mono-code);
+}
+
+.bg-girih-filigree {
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(223, 192, 123, 0.07), transparent 42%),
+    radial-gradient(circle at 80% 35%, rgba(79, 140, 255, 0.06), transparent 45%),
+    repeating-linear-gradient(
+      45deg,
+      rgba(223, 192, 123, 0.025) 0px,
+      rgba(223, 192, 123, 0.025) 1px,
+      transparent 1px,
+      transparent 28px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(223, 192, 123, 0.025) 0px,
+      rgba(223, 192, 123, 0.025) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #fff5d6 0%, #dfc07b 48%, #b98f3b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.octa-bevel-shell {
+  clip-path: polygon(
+    10px 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% calc(100% - 10px),
+    calc(100% - 10px) 100%,
+    10px 100%,
+    0 calc(100% - 10px),
+    0 10px
+  );
+}
+
+@layer components {
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    border: 2px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    font-weight: 700;
+  }
+
+  .sticker-yellow {
+    background-color: var(--yellow);
+    color: var(--ink);
+  }
+
+  .sticker-pink {
+    background-color: var(--pink);
+    color: var(--ink);
+  }
+
+  .sticker-blue {
+    background-color: var(--blue);
+    color: #ffffff;
+  }
+
+  .sticker-paper {
+    background-color: var(--paper);
+    color: var(--ink);
+  }
+}
+
+@keyframes mw-spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow,
+.conic-halo-ring {
+  animation: mw-spin-slow 42s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .conic-halo-ring {
+    animation: none;
+  }
+}

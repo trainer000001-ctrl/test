@@ -1,0 +1,90 @@
+name: Security Scan (Trivy)
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Weekly on Monday 06:00 UTC
+  workflow_dispatch:
+    inputs:
+      severity:
+        description: "Severity threshold for vulnerabilities"
+        required: false
+        default: "HIGH,CRITICAL"
+        type: choice
+        options:
+          - "CRITICAL"
+          - "HIGH,CRITICAL"
+          - "MEDIUM,HIGH,CRITICAL"
+          - "LOW,MEDIUM,HIGH,CRITICAL"
+
+jobs:
+  trivy:
+    name: Trivy Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Set Trivy cache key
+        id: trivy-cache-key
+        run: echo "date=$(date -u +'%Y-%m-%d')" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Trivy vulnerability database
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ~/.cache/trivy
+          key: trivy-db-${{ runner.os }}-${{ steps.trivy-cache-key.outputs.date }}
+          restore-keys: trivy-db-${{ runner.os }}-
+
+      - name: Install Trivy
+        run: |
+          curl --fail --silent --show-error --location \
+            https://github.com/aquasecurity/trivy/releases/download/v0.70.0/trivy_0.70.0_Linux-64bit.tar.gz \
+            --output "$RUNNER_TEMP/trivy.tar.gz"
+          echo "8b4376d5d6befe5c24d503f10ff136d9e0c49f9127a4279fd110b727929a5aa9  $RUNNER_TEMP/trivy.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/trivy.tar.gz" -C "$RUNNER_TEMP" trivy
+          sudo install "$RUNNER_TEMP/trivy" /usr/local/bin/trivy
+          trivy --version
+
+      - name: Run Trivy vulnerability scan
+        env:
+          SEVERITY: ${{ github.event.inputs.severity || 'HIGH,CRITICAL' }}
+        run: |
+          trivy fs \
+            --scanners vuln,misconfig,secret \
+            --vuln-type os,library \
+            --severity "$SEVERITY" \
+            --ignore-unfixed \
+            --format sarif \
+            --output trivy-results.sarif \
+            --exit-code 1 \
+            .
+
+      - name: Upload Trivy results as artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: trivy-results
+          path: trivy-results.sarif
+          retention-days: 30
+
+      - name: Summarize Trivy findings
+        if: always()
+        run: |
+          if [ -f trivy-results.sarif ]; then
+            ERROR_COUNT=$(jq '[.runs[]?.results[]? | select(.level == "error")] | length' trivy-results.sarif)
+            WARNING_COUNT=$(jq '[.runs[]?.results[]? | select(.level == "warning")] | length' trivy-results.sarif)
+            
+            if [ "$ERROR_COUNT" -gt 0 ] || [ "$WARNING_COUNT" -gt 0 ]; then
+              echo "::warning::Found $ERROR_COUNT error-level and $WARNING_COUNT warning-level findings"
+              echo "::warning::Review the Trivy SARIF artifact attached to this workflow run"
+            fi
+          fi
+
+      - name: Note Code Scanning upload is unavailable
+        if: always()
+        run: |
+          echo "::notice::Trivy results are retained as an Actions artifact; Code Scanning upload is unavailable for this private repository."

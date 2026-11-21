@@ -1,0 +1,72 @@
+name: Branch cleanup
+
+on:
+  pull_request:
+    types: [closed]
+  push:
+    branches: [dev]
+  workflow_dispatch:
+    inputs:
+      force_prune_all:
+        description: Delete all non-dev/main/release-please remote branches even if unmerged
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: branch-cleanup-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  cleanup:
+    name: Enforce two persistent branches (dev and main only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Delete closed PR head branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          case "$HEAD_REF" in
+            dev|main|master|release-please--*)
+              echo "Preserving protected/automation ref '$HEAD_REF'."
+              exit 0
+              ;;
+          esac
+          if git ls-remote --exit-code --heads origin "$HEAD_REF" >/dev/null 2>&1; then
+            echo "Deleting closed PR branch '$HEAD_REF' from origin..."
+            git push origin --delete "$HEAD_REF" || true
+          else
+            echo "Branch '$HEAD_REF' already absent from origin."
+          fi
+
+      - name: Sweep stale remote branches outside dev and main
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        env:
+          FORCE_PRUNE_ALL: ${{ inputs.force_prune_all || false }}
+        run: |
+          git fetch origin --prune
+          while IFS= read -r ref; do
+            branch="${ref#origin/}"
+            case "$branch" in
+              ""|HEAD|dev|main|master|release-please--*)
+                continue
+                ;;
+            esac
+            if [ "$FORCE_PRUNE_ALL" = "true" ] || git merge-base --is-ancestor "$ref" origin/dev; then
+              echo "Pruning obsolete remote branch '$branch'..."
+              git push origin --delete "$branch" || true
+            else
+              echo "Keeping active unmerged branch '$branch'."
+            fi
+          done < <(git for-each-ref --format='%(refname:short)' refs/remotes/origin/)

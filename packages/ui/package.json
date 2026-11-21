@@ -1,0 +1,26 @@
+{
+  "name": "@moonwitness/ui",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./kanban-logic": "./src/kanban-logic.ts",
+    "./imperium": "./src/imperium.tsx",
+    "./icons": "./src/icons.tsx",
+    "./tokens": "./src/tokens.ts",
+    "./theme.css": "./src/theme.css",
+    "./base.css": "./src/base.css",
+    "./skins/imperium.css": "./src/skins/imperium.css"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/utilities": "^3.2.2",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.6.0"
+  }
+}

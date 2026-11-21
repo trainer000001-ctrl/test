@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@moonwitness/ui/theme.css";
+@import "@moonwitness/ui/base.css";
+@import "@moonwitness/ui/skins/imperium.css";
+
+@source "../../../../packages/ui/src";

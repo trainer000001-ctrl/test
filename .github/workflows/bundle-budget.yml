@@ -1,0 +1,82 @@
+name: Bundle Size Budget
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bundle-size:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+
+      # pnpm via corepack: tidak butuh action pihak ketiga.
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build web
+        run: pnpm --filter @moonwitness/web build
+
+      - name: Check bundle size
+        id: bundle-size
+        run: |
+          BUDGET_KB=200
+          TOTAL=0
+          COUNT=0
+          # Total JS yang dikirim ke browser (gzip), dari .next/static.
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            sz=$(gzip -c "$f" | wc -c)
+            TOTAL=$((TOTAL + sz))
+            COUNT=$((COUNT + 1))
+          done < <(find apps/web/.next/static -name "*.js" -type f 2>/dev/null)
+
+          SIZE_KB=$((TOTAL / 1024))
+          echo "JS files: ${COUNT}"
+          echo "Total JS (gzipped): ${SIZE_KB}KB"
+          echo "bundle_size_kb=${SIZE_KB}" >> "$GITHUB_OUTPUT"
+
+          if [ "$COUNT" -eq 0 ]; then
+            echo "::error::Tidak menemukan bundle JS di apps/web/.next/static (build gagal?)"
+            exit 1
+          fi
+          if [ "$SIZE_KB" -gt "$BUDGET_KB" ]; then
+            echo "::warning::Total JS ${SIZE_KB}KB melewati budget ${BUDGET_KB}KB"
+          fi
+
+      - name: Report bundle size
+        if: always() && github.event_name == 'pull_request'
+        env:
+          BUNDLE_SIZE_KB: ${{ steps.bundle-size.outputs.bundle_size_kb }}
+        run: |
+          size="${BUNDLE_SIZE_KB:-0}"
+          budget=200
+          echo "## Bundle Size Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Total JS (gzipped):** ${size}KB / budget ${budget}KB" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          if [ "$size" -eq 0 ]; then
+            echo "Could not measure the bundle." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$size" -gt "$budget" ]; then
+            echo "Over budget (${size}KB > ${budget}KB). Consider code splitting." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Within budget." >> "$GITHUB_STEP_SUMMARY"
+          fi

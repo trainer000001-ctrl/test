@@ -1,0 +1,44 @@
+{
+	email {$ACME_EMAIL:admin@moonwitness.biz.id}
+	servers {
+		trusted_proxies static private_ranges
+	}
+}
+
+(security_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+{$DOMAIN_MOONWITNESS:moonwitness.biz.id} {
+	import security_headers
+	encode zstd gzip
+	reverse_proxy web:3000
+}
+
+{$DOMAIN_ALLAH:a-l-l-a-h.com} {
+	import security_headers
+	encode zstd gzip
+	reverse_proxy web:3000
+}
+
+{$DOMAIN_API:api.moonwitness.biz.id} {
+	import security_headers
+	encode zstd gzip
+	reverse_proxy api:3002
+}
+
+{$DOMAIN_ID:id.moonwitness.biz.id} {
+	import security_headers
+	encode zstd gzip
+	reverse_proxy api:3002
+}
+
+:80 {
+	redir https://{host}{uri} permanent
+}

@@ -1,0 +1,76 @@
+name: Visual & Cross-Skin Regression
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  visual-regression:
+    name: Cross-Skin Matrix & Visual Verification
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    if: github.event_name != 'pull_request' || github.event.pull_request.draft == false
+    env:
+      HAS_PERCY_TOKEN: ${{ secrets.PERCY_TOKEN != '' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+          pnpm --version
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Cross-World Contrast Gate (dark + light)
+        run: pnpm ui:contrast
+
+      - name: Build unified @moonwitness/web
+        run: pnpm --filter @moonwitness/web build
+
+      - name: Install Playwright Chromium
+        working-directory: ./apps/web
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run Deterministic 6-Skin & Cross-World Visual Matrix (including A-L-L-A-H)
+        working-directory: ./apps/web
+        run: pnpm exec playwright test --config cross-world-playwright.config.ts
+
+      - name: Optional Percy Cloud Diff (when PERCY_TOKEN configured)
+        if: env.HAS_PERCY_TOKEN == 'true'
+        working-directory: ./apps/web
+        run: |
+          pnpm --silent dlx @percy/cli@1.32.12 exec -- \
+            pnpm exec playwright test --config ../../playwright.config.ts --project=chromium --reporter=list
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+
+      - name: Upload Skin Matrix & Viewport Screenshots
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: ui-visual-matrix-evidence
+          path: |
+            .verify/skin-matrix
+            .verify/cross-world-results
+            apps/web/test-results/screenshots
+          retention-days: 14

@@ -1,0 +1,42 @@
+{
+  "invariant": "REVEALED SOURCE CATEGORY ≠ EXTANT TEXTUAL WITNESS",
+  "note": "Primary classical text samples extracted from local consolidated repositories (oshb-wlc, sblgnt-v1-2, divine-text).",
+  "passages": [
+    {
+      "corpusCode": "SRC-TOR",
+      "corpusName": "TAURAT",
+      "reference": "Deuteronomy 6:4 · 16:20 (OSHB WLC 4.20 Hebrew Witness)",
+      "language": "Hebrew",
+      "dir": "rtl",
+      "originalText": "שְׁמַ֖ע יִשְׂרָאֵ֑ל יְהוָ֥ה אֱלֹהֵ֖ינוּ יְהוָ֥ה אֶחָֽד · צֶ֥דֶק צֶ֖דֶק תִּרְדֹּ֑ף לְמַ֤עַן תִּֽחְיֶה֙ וְיָרַשְׁתָּ֣ אֶת הָאָ֔רֶץ אֲשֶׁר יְהוָ֥ה אֱלֹהֶ֖יךָ נֹתֵ֥ן לָֽךְ",
+      "summary": "Hear, O Israel: the Creator is One · Justice, pure justice shall you pursue so that community endures."
+    },
+    {
+      "corpusCode": "SRC-ZAB",
+      "corpusName": "ZABUR",
+      "reference": "Psalms 82:3 · 146:9 (OSHB WLC 4.20 Hebrew Witness)",
+      "language": "Hebrew",
+      "dir": "rtl",
+      "originalText": "שִׁפְטוּ דַ֥ל וְיָת֑וֹם עָנִ֖י וָרָ֣שׁ הַצְדִּֽיקוּ · יְהוָ֤ה שֹׁ֘מֵ֤ר אֶת גֵּרִ֗ים יָת֣וֹם וְאַלְמָנָ֣ה יְעוֹדֵ֑ד וְדֶ֖רֶךְ רְשָׁעִ֣ים יְעַוֵּֽת",
+      "summary": "Vindicate the weak and the orphan; do justice to the afflicted and destitute; protect the stranger."
+    },
+    {
+      "corpusCode": "SRC-INJ",
+      "corpusName": "INJIL",
+      "reference": "Mark 12:29 · Matthew 5:9 (SBLGNT v1.2 Koine Greek Witness)",
+      "language": "Koine Greek",
+      "dir": "ltr",
+      "originalText": "ἀπεκρίθη ὁ Ἰησοῦς⸃ ὅτι Πρώτη ἐστίν· Ἄκουε, Ἰσραήλ, κύριος ὁ θεὸς ἡμῶν κύριος εἷς ἐστιν, · μακάριοι οἱ εἰρηνοποιοί, ὅτι αὐτοὶ υἱοὶ θεοῦ κληθήσονται.",
+      "summary": "The Lord our God is one Lord · Blessed are the peacemakers, upheld beyond outward status."
+    },
+    {
+      "corpusCode": "SRC-QUR",
+      "corpusName": "AL-QURAN",
+      "reference": "Al-Baqarah 2:256 · An-Nisa 4:135 (Uthmani Arabic Witness)",
+      "language": "Arabic",
+      "dir": "rtl",
+      "originalText": "لَآ إِكْرَاهَ فِى ٱلدِّينِ ۖ قَد تَّبَيَّنَ ٱلرُّشْدُ مِنَ ٱلْغَىِّ ۚ فَمَن يَكْفُرْ بِٱلطَّـٰغُوتِ وَيُؤْمِنۢ بِٱللَّهِ فَقَدِ ٱسْتَمْسَكَ بِٱلْعُرْوَةِ ٱلْوُثْقَىٰ لَا ٱنفِصَامَ لَهَا ۗ وَٱللَّهُ سَمِيعٌ عَلِيمٌ ﴿٢٥٦﴾ · يَـٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ كُونُوا۟ قَوَّٰمِينَ بِٱلْقِسْطِ شُهَدَآءَ لِلَّهِ وَلَوْ عَلَىٰٓ أَنفُسِكُمْ أَوِ ٱلْوَٰلِدَيْنِ وَٱلْأَقْرَبِينَ ۚ إِن يَكُنْ غَنِيًّا أَوْ فَقِيرًا فَٱللَّهُ أَوْلَىٰ بِهِمَا ۖ فَلَا تَتَّبِعُوا۟ ٱلْهَوَىٰٓ أَن تَعْدِلُوا۟ ۚ وَإِن تَلْوُۥٓا۟ أَوْ تُعْرِضُوا۟ فَإِنَّ ٱللَّهَ كَانَ بِمَا تَعْمَلُونَ خَبِيرًا ﴿١٣٥﴾",
+      "summary": "There is zero compulsion in religion · Stand firm as impartial witnesses to justice for ALLAH."
+    }
+  ]
+}

@@ -1,0 +1,3209 @@
+# MOONWITNESS — ULTRA MEGA TRANSFORMATION
+## MASTER ENGINEERING CONSTITUTION & AUTONOMOUS EXECUTION PROMPT
+
+**EDITION:** FULL ECOSYSTEM TRANSFORMATION  
+**MODE:** AUTONOMOUS ENGINEERING  
+**QUALITY:** ENTERPRISE / PRODUCTION GRADE  
+**ARCHITECTURE:** ORM-FIRST · ADDON-NATIVE · MODEL-VIEW-DRIVEN  
+**SCOPE:** ENTIRE MONOREPO
+
+---
+
+# PART I — THE ULTIMATE MISSION
+
+## 1. PROJECT OBJECTIVE
+
+Transform the entire MoonWitness repository into a modern, complete, extensible, enterprise-grade application platform inspired by Odoo, but engineered with more modern architecture, improved modularity, better developer experience, higher performance, cleaner abstractions, and stronger platform integration.
+
+This is not a simple refactoring project.
+
+This is not just a backend modernization.
+
+This is not just a Next.js frontend implementation.
+
+This is not just an ORM implementation.
+
+This is a complete transformation of the engineering foundation, application runtime, module architecture, data system, user interface, and developer ecosystem.
+
+The final platform must provide a unified architecture where:
+
+- ORM defines data structures and business models.
+- Addons define and extend platform capabilities.
+- Model Registry manages model discovery and metadata.
+- View Engine defines how models are presented.
+- Action Engine defines how operations are executed.
+- Security Engine controls access.
+- API/RPC exposes consistent platform capabilities.
+- Web Runtime renders dynamic applications.
+- Shared Packages provide reusable infrastructure.
+- Skin Engine controls visual presentation.
+- Core Runtime coordinates the complete ecosystem.
+
+All components must follow common contracts.
+
+There must not be multiple independent systems solving the same problem.
+
+**The objective is to build one platform, not a collection of loosely connected applications.**
+
+## 2. TARGET PRODUCT
+
+MoonWitness must become a complete application platform with the capabilities of a modular ERP framework and a modern application runtime.
+
+It should be:
+
+1. ORM-first.
+2. Addon-native.
+3. Model–View-driven.
+4. Metadata-driven.
+5. API/RPC-consistent.
+6. Permission-aware.
+7. Highly extensible.
+8. Reusable across applications.
+9. Configurable through addons.
+10. Themeable through a centralized skin system.
+11. Lightweight in execution.
+12. Maintainable in architecture.
+13. Secure by default.
+14. Production-ready.
+15. Developer-friendly.
+
+Take inspiration from Odoo's strongest architectural concepts, but do not blindly reproduce its historical implementation, technical limitations, legacy patterns, or unnecessary complexity.
+
+Use contemporary engineering practices and retain the strongest aspects of the existing MoonWitness technology stack.
+
+## 3. PRIMARY RULE
+
+**DO NOT STOP AT ANALYSIS. IMPLEMENT THE TRANSFORMATION.**
+
+Work through:
+
+DISCOVER → AUDIT → BRAINSTORM → DESIGN → PRIORITIZE → IMPLEMENT → INTEGRATE → TEST → OPTIMIZE → VERIFY.
+
+Do not spend the entire execution session creating roadmaps, architecture diagrams, GitHub issues, or documentation.
+
+Every useful finding should lead to an engineering decision and, whenever safely possible, an actual code change.
+
+---
+
+# PART II — AUTONOMOUS ENGINEERING ORGANIZATION
+
+## 4. OPERATE AS A COMPLETE ENGINEERING TEAM
+
+Operate as a coordinated engineering organization led by a Principal Architect.
+
+Create specialized workstreams according to actual repository needs.
+
+### 4.1 Principal Architect
+
+Responsible for:
+- Overall platform architecture.
+- Technology and design decisions.
+- System boundaries.
+- Core contracts.
+- Dependency direction.
+- Cross-package consistency.
+- Architecture review.
+- Integration approval.
+
+The Principal Architect is the final authority for technical consistency.
+
+### 4.2 Technical Project Manager
+
+Responsible for:
+- Repository-wide task coordination.
+- Work breakdown.
+- Dependency tracking.
+- Milestone management.
+- Agent ownership.
+- Priority management.
+- Delivery verification.
+
+### 4.3 Platform/Core Engineer
+
+Owns:
+- Core Runtime.
+- Bootstrap.
+- Registries.
+- Lifecycle.
+- Shared platform services.
+- System configuration.
+
+### 4.4 ORM Engineer
+
+Owns:
+- Model definitions.
+- Field engine.
+- Relationships.
+- Model registry.
+- Query system.
+- Transactions.
+- Metadata.
+- Schema synchronization.
+- Record operations.
+
+### 4.5 Addon Engineer
+
+Owns:
+- Addon manifests.
+- Discovery.
+- Registry.
+- Dependencies.
+- Installation.
+- Upgrade.
+- Uninstallation.
+- Extension.
+- Hooks.
+- Compatibility.
+
+### 4.6 Model–View Engineer
+
+Owns:
+- View metadata.
+- View definitions.
+- View registry.
+- Inheritance.
+- View resolution.
+- Field widget contracts.
+- Dynamic view runtime.
+
+### 4.7 Backend Engineer
+
+Owns:
+- `apps/api`.
+- API/RPC.
+- Services.
+- Domain logic.
+- Data access integration.
+- Background jobs.
+- Events.
+- External integrations.
+
+### 4.8 Frontend Engineer
+
+Owns:
+- `apps/web`.
+- Application Shell.
+- Dynamic Renderer.
+- Navigation.
+- State management.
+- User experience.
+- Shared visual components.
+
+### 4.9 Shared Package Engineer
+
+Owns:
+- `packages/*`.
+- Package boundaries.
+- Shared contracts.
+- Libraries.
+- Reusable utilities.
+- Public exports.
+- Dependency consistency.
+
+### 4.10 Security Engineer
+
+Owns:
+- Authentication.
+- Authorization.
+- ACL.
+- Record rules.
+- Identity.
+- Session management.
+- Data isolation.
+- Security review.
+
+### 4.11 Infrastructure and Performance Engineer
+
+Owns:
+- Runtime efficiency.
+- Database performance.
+- Caching.
+- Background execution.
+- Logging.
+- Observability.
+- Deployment.
+- Reliability.
+
+### 4.12 QA Engineer
+
+Owns:
+- Unit tests.
+- Integration tests.
+- End-to-end tests.
+- Regression testing.
+- Performance validation.
+- Security verification.
+- Release quality gates.
+
+## 5. MULTI-AGENT EXECUTION RULES
+
+Use parallel agents for genuinely independent work.
+
+Before parallel execution:
+
+1. Define target architecture.
+2. Define package ownership.
+3. Define interface contracts.
+4. Identify shared files.
+5. Assign clear responsibility.
+6. Establish integration checkpoints.
+
+Never allow multiple agents to independently invent:
+- An ORM engine.
+- An addon registry.
+- A model registry.
+- A View Registry.
+- A permission system.
+- An API contract.
+- A shared UI implementation.
+
+Avoid concurrent ownership of the same critical files.
+
+Each agent must report:
+- Files changed.
+- Responsibilities completed.
+- Contracts introduced or modified.
+- Tests executed.
+- Outstanding issues.
+
+The main coordinator must review and integrate all work.
+
+Do not create excessive agents for simple tasks.
+
+---
+
+# PART III — REPOSITORY-WIDE DISCOVERY
+
+## 6. COMPLETE MONOREPO AUDIT
+
+Inspect the actual repository before making architectural assumptions.
+
+Audit the entire ecosystem, not just the two main applications.
+
+### Primary Targets
+
+**Backend**
+- `apps/api`
+- Existing backend modules.
+- Database adapters.
+- Authentication.
+- Service architecture.
+- API/RPC implementation.
+- ORM integration.
+
+**Frontend**
+- `apps/web`
+- Application Shell.
+- Routing.
+- Rendering.
+- Components.
+- Form and table systems.
+- State management.
+- Theme architecture.
+
+**Shared Packages**
+- `packages/*`
+- Contracts.
+- Core libraries.
+- Shared services.
+- ORM-related utilities.
+- Addon-related utilities.
+- UI libraries.
+- Design systems.
+- Integrations.
+- Developer tooling.
+
+**Repository Infrastructure**
+- Root package manifests.
+- Workspace definitions.
+- Lockfiles.
+- Build tools.
+- Type checking.
+- Linting.
+- Tests.
+- CI workflows.
+- Deployment configurations.
+- Docker and local development.
+- Environment configuration.
+- Documentation.
+- Existing task plans.
+
+Inspect additional application or tooling directories if they exist.
+
+### 6.1 Dependency Audit
+
+Map all package dependencies.
+
+Identify:
+- Direct dependencies.
+- Transitive dependencies.
+- Duplicate dependencies.
+- Circular dependencies.
+- Unnecessary dependencies.
+- Incorrect dependency direction.
+- Packages importing private internals.
+- Packages with overlapping responsibilities.
+- Packages that should be consolidated.
+- Packages that should be extracted.
+
+Produce an actual dependency graph.
+
+### 6.2 Implementation Maturity Audit
+
+Classify every major subsystem:
+
+- Fully implemented and verified.
+- Implemented but incomplete.
+- Implemented with architectural problems.
+- Partially integrated.
+- Placeholder or mock.
+- Dead or unused.
+- Missing entirely.
+
+Do not classify features based solely on filenames, interfaces, comments, or documentation.
+
+Trace actual execution paths.
+
+### 6.3 Technical Debt Audit
+
+Identify:
+- Architecture duplication.
+- Legacy implementation.
+- Unused abstractions.
+- Inconsistent conventions.
+- Broken contracts.
+- Missing validation.
+- Unnecessary complexity.
+- Data access bypassing ORM.
+- Business logic duplicated in frontend.
+- Direct database coupling.
+- Incomplete lifecycle operations.
+- Inconsistent error handling.
+- Unprotected API operations.
+- Performance bottlenecks.
+- Missing tests.
+- Missing documentation.
+
+### 6.4 Audit Deliverables
+
+Produce a concise internal audit containing:
+
+1. Existing architecture map.
+2. Application and package inventory.
+3. Dependency graph.
+4. Critical findings.
+5. Missing platform capabilities.
+6. Risks and technical debt.
+7. Proposed architecture.
+8. Prioritized implementation order.
+
+Continue into implementation immediately.
+
+---
+
+# PART IV — GLOBAL ARCHITECTURE
+
+## 7. UNIFIED PLATFORM ARCHITECTURE
+
+Build a coherent architecture with clearly defined responsibilities.
+
+The target logical architecture is:
+
+### Foundation Layer
+- Core Runtime.
+- Core Contracts.
+- Configuration.
+- Logging.
+- Error System.
+- Lifecycle.
+- Dependency Resolution.
+
+### Data Layer
+- ORM Engine.
+- Model Registry.
+- Field Registry.
+- Relationship Engine.
+- Query Engine.
+- Transaction Manager.
+- Schema Manager.
+- Metadata Engine.
+
+### Modular System
+- Addon Engine.
+- Addon Registry.
+- Dependency Resolver.
+- Lifecycle Manager.
+- Extension System.
+- Compatibility Validation.
+
+### Application Engine
+- Model–View Engine.
+- View Registry.
+- Action Engine.
+- Menu Engine.
+- Domain Engine.
+- Context Engine.
+- Field Widget Registry.
+
+### Security Layer
+- Identity.
+- Authentication.
+- Groups.
+- Roles.
+- ACL.
+- Record Rules.
+- Field Access.
+- Policy Evaluation.
+
+### Service Layer
+- Application Services.
+- Domain Services.
+- Events.
+- Hooks.
+- Background Jobs.
+- Scheduler.
+- Integrations.
+
+### Interface Layer
+- API Gateway.
+- RPC.
+- Web Application Runtime.
+- Dynamic Renderer.
+- Shared UI.
+- Skin Engine.
+
+### Operations Layer
+- Health Checks.
+- Metrics.
+- Logs.
+- Tracing where justified.
+- Backups.
+- Recovery.
+- Deployment.
+- CI/CD.
+
+These are logical capabilities, not mandatory standalone packages.
+
+Do not create a package for every individual concept.
+
+Group related components when that produces clearer ownership and fewer dependency boundaries.
+
+## 8. ARCHITECTURAL DEPENDENCY RULES
+
+Enforce clear dependency direction.
+
+- Core contracts must not depend on applications.
+- ORM must not depend on frontend.
+- Addon registration must use platform contracts.
+- Model–View resolution must consume ORM metadata.
+- Security must be enforceable independently of UI.
+- API must expose stable contracts rather than database internals.
+- Web must consume public APIs and metadata contracts.
+- Shared UI must not import backend implementation.
+- Themes must not contain business logic.
+- Addons must not bypass core service boundaries.
+
+Prevent dependency cycles.
+
+Avoid hidden cross-package imports.
+
+Expose stable public APIs.
+
+---
+
+# PART V — CORE RUNTIME
+
+## 9. PLATFORM BOOTSTRAP & APPLICATION LIFECYCLE
+
+Create a deterministic platform initialization process.
+
+Support:
+
+- Environment loading.
+- Configuration loading.
+- Database connection initialization.
+- Core service registration.
+- ORM initialization.
+- Model discovery.
+- Addon discovery.
+- Dependency resolution.
+- Registry initialization.
+- Permission registration.
+- Action and View registration.
+- API initialization.
+- Web metadata exposure.
+- Application startup.
+
+Define lifecycle stages:
+
+- Initialize.
+- Discover.
+- Validate.
+- Register.
+- Resolve.
+- Prepare.
+- Activate.
+- Runtime.
+- Shutdown.
+
+Ensure startup errors are explicit and actionable.
+
+Support graceful shutdown.
+
+Avoid hidden initialization side effects and unpredictable import-order registration.
+
+## 10. SERVICE REGISTRY & DEPENDENCY MANAGEMENT
+
+Establish a controlled service registration mechanism.
+
+Support:
+- Core services.
+- Addon-provided services.
+- Infrastructure adapters.
+- Shared service contracts.
+- Lifecycle management.
+- Dependency declarations.
+- Configuration injection.
+- Test replacements.
+
+Do not build an unnecessarily complex dependency injection framework if the existing stack already provides an appropriate mechanism.
+
+---
+
+# PART VI — ORM AND MODEL ENGINE
+
+## 11. ORM IS THE CANONICAL DATA FOUNDATION
+
+The ORM is one of the most critical components of MoonWitness.
+
+All addons and application modules must use one consistent data architecture.
+
+There must not be independent ORM implementations for different applications.
+
+There must not be inconsistent direct database access.
+
+All normal business data access must follow the canonical ORM architecture.
+
+## 12. MODEL ENGINE
+
+Implement or mature:
+
+### 12.1 Model Definitions
+
+Each model must provide:
+- Technical name.
+- Namespace.
+- Description.
+- Fields.
+- Relations.
+- Constraints.
+- Defaults.
+- Methods.
+- Access configuration.
+- Metadata.
+- Lifecycle behavior.
+
+### 12.2 Model Registry
+
+Support:
+- Automatic model discovery.
+- Registration.
+- Model metadata.
+- Namespace validation.
+- Duplicate detection.
+- Inheritance.
+- Extensions.
+- Dependency resolution.
+- Deterministic initialization.
+- Registry rebuilding.
+
+### 12.3 Model APIs
+
+Establish a consistent model interface inspired by Odoo:
+
+- `create`
+- `write`
+- `read`
+- `search`
+- `search_count`
+- `browse`
+- `unlink`
+- `copy`
+- `default_get`
+- `name_get`
+- `name_search`
+
+Adapt the API to the existing implementation language and conventions.
+
+These operations must use the same ORM execution pipeline.
+
+### 12.4 Recordset and Environment Abstraction
+
+Where suitable for the existing stack, provide a consistent recordset/environment abstraction.
+
+Support:
+- Record collections.
+- User context.
+- Company context where applicable.
+- Language and timezone context.
+- Access context.
+- Transaction context.
+- Prefetching.
+- Safe record operations.
+- Consistent model access.
+
+Avoid constructing a complicated recordset framework if the existing ORM already has a clean equivalent.
+
+### 12.5 Model Inheritance
+
+Support appropriate Odoo-inspired inheritance patterns:
+
+- Standard extension of an existing model.
+- Delegated composition or inheritance where justified.
+- Field extension.
+- Method override.
+- Extension ordering.
+- Multiple addon contributions.
+- Conflict detection.
+
+Never let addon load order arbitrarily determine business behavior.
+
+Document deterministic resolution rules.
+
+## 13. FIELD ENGINE
+
+Provide standardized field definitions.
+
+### Basic Field Types
+
+- Character.
+- Text.
+- Integer.
+- Float.
+- Decimal.
+- Monetary.
+- Boolean.
+- Date.
+- Datetime.
+- Binary.
+- Selection.
+- Reference.
+
+### Relational Field Types
+
+- Many-to-One.
+- One-to-Many.
+- Many-to-Many.
+
+### Advanced Field Capabilities
+
+- Required.
+- Readonly.
+- Indexed.
+- Unique.
+- Nullable.
+- Default values.
+- Help text.
+- Labels.
+- Translation.
+- Computed values.
+- Stored computed values.
+- Related values.
+- Inverse methods.
+- Dependencies.
+- Domain restrictions.
+- Context defaults.
+- Field-level security.
+- Serialization rules.
+- Validation.
+
+Ensure field metadata is available to the View Engine.
+
+## 14. COMPUTED FIELD & DEPENDENCY ENGINE
+
+Provide a reliable dependency mechanism.
+
+Support:
+- Computed fields.
+- Dependency declarations.
+- Dependency graph.
+- Change detection.
+- Recalculation.
+- Stored computation.
+- Non-stored computation.
+- Inverse behavior.
+- Cycle detection.
+- Recalculation strategy.
+
+Avoid recalculating unrelated fields.
+
+Prevent circular dependencies and inconsistent stored values.
+
+## 15. ONCHANGE, DEFAULTS & VALIDATION
+
+Support:
+- Default values.
+- User context defaults.
+- Model defaults.
+- On-change behavior.
+- Server-side validation.
+- Field validation.
+- Model constraints.
+- Cross-field constraints.
+- Relational validation.
+- Database constraints.
+
+Onchange is an interaction convenience, not the final source of data integrity.
+
+All important business validation must also be enforced server-side.
+
+## 16. RELATIONSHIP ENGINE
+
+Support:
+- Relation registration.
+- Referential integrity.
+- Foreign keys.
+- Inverse relationships.
+- Deletion policies.
+- Cascading behavior.
+- Many-to-many intermediary tables.
+- Relationship validation.
+- Efficient relationship loading.
+- Prefetching.
+- Nested relational operations.
+
+Prevent orphaned references.
+
+Ensure relationship metadata is consumed by frontend widgets.
+
+## 17. DOMAIN & QUERY ENGINE
+
+Create a reusable query and domain language.
+
+Support:
+- Equality.
+- Inequality.
+- Comparisons.
+- Membership.
+- Text matching.
+- Null checks.
+- AND.
+- OR.
+- NOT.
+- Nested logical expressions.
+- Relational traversal.
+- Context-aware filtering.
+- Permission-aware filtering.
+
+Provide consistent:
+- Search.
+- Search count.
+- Sort.
+- Pagination.
+- Grouping.
+- Aggregation.
+- Read operations.
+- Bulk operations.
+
+The domain engine must safely translate queries into parameterized database operations.
+
+Do not trust a client-supplied domain as an access-control policy.
+
+## 18. TRANSACTION & CONCURRENCY ENGINE
+
+Support:
+- Atomic operations.
+- Transactions.
+- Commit.
+- Rollback.
+- Savepoints where supported.
+- Concurrency control.
+- Isolation settings where appropriate.
+- Deadlock handling.
+- Consistent exception propagation.
+- Bulk transaction handling.
+
+Ensure addon installation and upgrade operations do not leave partially registered or inconsistent state.
+
+## 19. ORM-MANAGED DATABASE SCHEMA
+
+**IMPORTANT: DO NOT CREATE A SEPARATE GENERIC DATABASE MIGRATION FRAMEWORK.**
+
+Follow an Odoo-style ORM-managed schema architecture.
+
+The ORM owns ordinary database schema synchronization.
+
+### Automatic Schema Management
+
+During initial installation and addon upgrades, the platform should:
+
+1. Discover active model definitions.
+2. Build canonical model metadata.
+3. Inspect the existing database schema.
+4. Compare existing schema with registered definitions.
+5. Detect required changes.
+6. Create missing tables.
+7. Create missing columns.
+8. Apply compatible field changes.
+9. Create or update indexes.
+10. Create constraints and relationships.
+11. Verify schema integrity.
+12. Record successful addon state.
+
+Routine model changes must not require developers to write migration scripts.
+
+### Safe Schema Evolution
+
+Support:
+- New models.
+- New fields.
+- Required-field introduction with safe default/backfill strategy.
+- Field type changes where safely convertible.
+- Index changes.
+- Relation changes.
+- Constraint changes.
+- Model extensions.
+- Field removal with explicit safety policies.
+- Explicit field rename metadata.
+
+Do not assume an arbitrary removed field and newly added field represent a rename.
+
+Never silently delete production data.
+
+### Addon Upgrade Hooks
+
+Optional addon-local upgrade hooks may be used for exceptional transformations:
+
+- Field rename requiring data preservation.
+- Data normalization.
+- Model merging.
+- Model restructuring.
+- Business data transformation.
+- Stored computed value recomputation.
+- Metadata or reference updates.
+
+These hooks are exceptional and addon-owned.
+
+Do not require them for routine schema updates.
+
+### Schema Management Rules
+
+- One canonical ORM schema definition.
+- Safe schema comparison.
+- Deterministic execution.
+- Data preservation.
+- Explicit destructive-change handling.
+- Transactional behavior where supported.
+- Upgrade logs.
+- Failure recovery.
+- Compatibility validation.
+
+Avoid a second schema definition system that duplicates the ORM model metadata.
+
+## 20. DATABASE ADAPTERS
+
+Inspect the current database technology.
+
+Provide a clean adapter boundary when multiple database engines genuinely need support.
+
+The ORM must not spread database-specific implementation details through addon business code.
+
+Do not introduce unnecessary database support or abstraction layers.
+
+Optimize the actual production database first.
+
+---
+
+# PART VII — ADDON ENGINE
+
+## 21. ADDON-NATIVE PLATFORM DESIGN
+
+An addon is a native unit of platform capability.
+
+It is not merely a folder containing unrelated code.
+
+Every addon must follow one canonical structure and lifecycle.
+
+## 22. ADDON MANIFEST
+
+Establish a standard manifest schema.
+
+Include relevant metadata:
+
+- Technical identifier.
+- Name.
+- Description.
+- Version.
+- Author or publisher.
+- Category.
+- Application flag.
+- License metadata.
+- Platform compatibility.
+- Dependencies.
+- Optional dependencies.
+- Model registrations.
+- Views.
+- Actions.
+- Menus.
+- Permissions.
+- Services.
+- Events.
+- Routes.
+- Resources.
+- Assets.
+- Configuration.
+- Installation hooks.
+- Upgrade hooks.
+- Uninstall hooks.
+
+Only include supported fields in the final manifest contract.
+
+Validate manifests before installation.
+
+## 23. ADDON REGISTRY
+
+Support:
+- Discovery.
+- Manifest loading.
+- Schema validation.
+- Namespace handling.
+- Registration.
+- Duplicate detection.
+- Compatibility.
+- Dependency graph.
+- Circular dependency detection.
+- Load ordering.
+- Conflict resolution.
+- State management.
+
+## 24. ADDON LIFECYCLE
+
+Implement:
+
+### Discovery
+Find available addons and read manifests.
+
+### Validation
+Check compatibility, manifest validity, and dependencies.
+
+### Installation
+Register resources and models, synchronize schema, install owned data, register views/actions/menus, and activate the addon.
+
+### Enable
+Activate supported runtime capabilities.
+
+### Disable
+Prevent normal addon execution without destructive data removal.
+
+### Upgrade
+Refresh definitions, synchronize ORM schema, run applicable exceptional data hooks, and rebuild dependent registries.
+
+### Uninstall
+Remove addon-owned registrations and resources according to dependency and retention policies.
+
+### Recovery
+Handle failed operations without leaving inconsistent platform state.
+
+## 25. ADDON DEPENDENCIES
+
+Support:
+- Required dependencies.
+- Optional dependencies.
+- Version constraints.
+- Compatibility.
+- Dependency ordering.
+- Reverse dependencies.
+- Conflict detection.
+- Missing dependency detection.
+
+Prevent circular dependencies.
+
+Do not permit unsafe uninstall of a required dependency.
+
+## 26. ADDON EXTENSION SYSTEM
+
+Support controlled extensions for:
+
+- Models.
+- Fields.
+- Methods.
+- Views.
+- Actions.
+- Menus.
+- Search filters.
+- Widgets.
+- Services.
+- Events.
+- Permissions.
+- Configuration.
+
+Every extension must have deterministic ordering.
+
+Detect incompatible overrides and invalid targets.
+
+## 27. ADDON DATA & RESOURCE MANAGEMENT
+
+Provide a standard mechanism for addon-owned:
+
+- Initial data.
+- Configuration data.
+- Reference records.
+- Access control definitions.
+- UI definitions.
+- Menu definitions.
+- Actions.
+- Assets.
+- Static resources.
+- Optional demo data.
+
+Define loading order and dependency references.
+
+Ensure addon data can be safely updated and tracked.
+
+Prevent accidental duplicate records on repeated installation or upgrade.
+
+## 28. ADDON ISOLATION
+
+Define strict boundaries for addon access to:
+- ORM.
+- Services.
+- Events.
+- APIs.
+- Configuration.
+- Secrets.
+- Permissions.
+- Files.
+- External resources.
+
+An addon must not bypass the platform's authorization and lifecycle mechanisms.
+
+Use appropriate execution restrictions, but do not claim arbitrary third-party code is safely sandboxed merely because it is registered as an addon.
+
+## 29. ADDON DEVELOPER EXPERIENCE
+
+Establish a predictable development model.
+
+Provide:
+- Addon template.
+- Manifest validation.
+- Development utilities.
+- Registration helpers.
+- Test helpers.
+- Example addons.
+- Documentation.
+- Runtime diagnostics.
+
+Creating a new addon must not require modifications to unrelated core modules.
+
+---
+
+# PART VIII — MODEL–VIEW ENGINE
+
+## 30. MODEL–VIEW AS A FIRST-CLASS CORE
+
+The Model–View system must be a first-class part of MoonWitness.
+
+It is not just a component library.
+
+It is not a collection of manually coded pages.
+
+It is a metadata-driven application runtime.
+
+ORM describes what a model is.
+
+View describes how that model is presented.
+
+Actions describe what users can do.
+
+Permissions determine what users are allowed to do.
+
+## 31. VIEW REGISTRY
+
+Provide:
+- View discovery.
+- Registration.
+- Model association.
+- View types.
+- View metadata.
+- View versioning.
+- Priority.
+- Inheritance.
+- Extensions.
+- Validation.
+- Permission-aware resolution.
+- Default view selection.
+
+Integrate the registry directly with addon lifecycle.
+
+## 32. DECLARATIVE VIEW ARCHITECTURE
+
+Establish one canonical declarative definition format.
+
+Evaluate the current repository and choose either a validated XML-style architecture or an appropriately typed structured format.
+
+Do not create multiple competing formats.
+
+View definitions should support:
+
+- Root view structures.
+- Fields.
+- Groups.
+- Sections.
+- Headers.
+- Footers.
+- Tabs.
+- Notebook structures.
+- Buttons.
+- Actions.
+- Separators.
+- Conditional visibility.
+- Readonly.
+- Required.
+- Decorations.
+- Relational subviews.
+- Embedded components.
+- Custom widgets.
+
+Provide validation and normalization before rendering.
+
+## 33. VIEW TYPES
+
+Implement extensible renderer contracts.
+
+### List View
+- Columns.
+- Field selection.
+- Sorting.
+- Pagination.
+- Search integration.
+- Grouping.
+- Row selection.
+- Bulk actions.
+- Row actions.
+- Inline editing where appropriate.
+- Empty states.
+- Loading states.
+- Responsive behavior.
+
+### Form View
+- Field layouts.
+- Groups.
+- Sections.
+- Tabs.
+- Headers.
+- Footers.
+- Validation.
+- Relational fields.
+- Onchange integration.
+- Save.
+- Discard.
+- Record actions.
+- Readonly state.
+
+### Search View
+- Search fields.
+- Filters.
+- Domain expressions.
+- Grouping.
+- Default filters.
+- Saved filters.
+- Context.
+- Sorting.
+
+### Kanban View
+- Configurable cards.
+- Grouping.
+- Status indicators.
+- Actions.
+- Drag-and-drop where supported.
+- Responsive layout.
+
+### Calendar View
+- Date fields.
+- Event rendering.
+- Calendar navigation.
+- Time zones.
+- Event interaction.
+
+### Graph View
+- Chart definitions.
+- Measures.
+- Dimensions.
+- Grouping.
+- Aggregation.
+
+### Pivot View
+- Rows.
+- Columns.
+- Measures.
+- Aggregations.
+- Drill-down.
+- Export where supported.
+
+### Additional Views
+- Activity.
+- Timeline.
+- Map, when applicable.
+- Dashboard.
+- Specialized custom views.
+
+Prioritize List, Form, and Search as the minimum complete view foundation.
+
+Additional views must have functional contracts and tests before being declared supported.
+
+## 34. VIEW INHERITANCE
+
+Support addon-driven view extensions.
+
+Allow:
+- Adding fields.
+- Removing fields.
+- Replacing components.
+- Moving elements.
+- Modifying attributes.
+- Extending tabs.
+- Adding actions.
+- Extending search filters.
+- Modifying layout structures.
+- Applying conditional behavior.
+
+Use stable selectors and deterministic inheritance ordering.
+
+Validate every extension.
+
+Detect missing targets, duplicate identifiers, and conflicting modifications.
+
+Do not require duplicating an entire view just to add one field.
+
+## 35. DEFAULT VIEW GENERATION
+
+For eligible ORM models without explicit views, generate usable defaults.
+
+Use model metadata to determine:
+- List columns.
+- Form fields.
+- Search fields.
+- Relational widgets.
+- Field labels.
+- Default ordering.
+- Readonly behavior.
+- Required fields.
+
+Explicit addon views override generated defaults.
+
+Generated views must remain extendable.
+
+## 36. FIELD WIDGET REGISTRY
+
+Create shared field rendering contracts.
+
+Include:
+
+- Char.
+- Text.
+- Integer.
+- Float.
+- Decimal.
+- Monetary.
+- Boolean.
+- Date.
+- Datetime.
+- Selection.
+- Many-to-One.
+- One-to-Many.
+- Many-to-Many.
+- Binary.
+- Image.
+- File.
+- Reference.
+- Custom addon widgets.
+
+Every widget must respect ORM metadata and security.
+
+Custom widgets must be registerable through the addon system.
+
+Do not duplicate widget implementations across applications.
+
+## 37. VIEW RESOLUTION PIPELINE
+
+Implement:
+
+1. Resolve model.
+2. Load ORM metadata.
+3. Identify installed addons.
+4. Resolve registered views.
+5. Apply inheritance.
+6. Apply extensions.
+7. Resolve action and context.
+8. Evaluate allowed metadata.
+9. Apply security constraints.
+10. Validate final architecture.
+11. Normalize the result.
+12. Return view metadata to frontend.
+13. Render through shared UI.
+
+Ensure deterministic results and reliable cache invalidation.
+
+---
+
+# PART IX — ACTION, MENU, DOMAIN & CONTEXT ENGINE
+
+## 38. ACTION ENGINE
+
+Support standardized actions:
+
+- Window action.
+- Model action.
+- Record action.
+- Server action.
+- Client action.
+- Method invocation.
+- URL action where appropriate.
+- Smart buttons.
+- Bulk actions.
+- Scheduled actions.
+
+Actions should define relevant:
+- Target model.
+- View selection.
+- Domain.
+- Context.
+- Record identifier.
+- Display behavior.
+- Permission requirements.
+
+Execution must go through the backend security and validation pipeline.
+
+Never execute arbitrary client-supplied methods.
+
+## 39. MENU ENGINE
+
+Allow addons to register menus declaratively.
+
+Support:
+- Parent and child menus.
+- Menu ordering.
+- Icons.
+- Actions.
+- Group restrictions.
+- Visibility policies.
+- Menu inheritance.
+- Dynamic discovery.
+
+Resolve menus based on installed addon capabilities and current user permissions.
+
+## 40. DOMAIN ENGINE
+
+Support reusable expression syntax:
+
+- AND.
+- OR.
+- NOT.
+- Comparisons.
+- Membership.
+- Pattern matching.
+- Relational conditions.
+- Nested expressions.
+- Context-aware expressions.
+
+Use a normalized internal representation.
+
+Ensure consistent use across:
+- API.
+- ORM.
+- Views.
+- Search.
+- Actions.
+- Record rules.
+
+Domain evaluation must never weaken security.
+
+## 41. CONTEXT ENGINE
+
+Standardize execution context.
+
+Support relevant:
+- Active model.
+- Active record.
+- Active records.
+- Default values.
+- Search defaults.
+- User preferences.
+- Language.
+- Timezone.
+- Company context where applicable.
+- Action context.
+- View context.
+
+Validate incoming context.
+
+Context is not an authorization mechanism.
+
+---
+
+# PART X — SECURITY & IDENTITY ENGINE
+
+## 42. AUTHENTICATION
+
+Audit the current authentication design.
+
+Provide a coherent identity foundation:
+
+- User accounts.
+- Credential handling.
+- Sessions.
+- Session expiration.
+- Password management.
+- Login/logout.
+- Password reset.
+- Email verification where needed.
+- Authentication policies.
+- API authentication.
+- Secure token handling.
+- Multi-factor support where required.
+
+Reuse good existing implementations.
+
+Do not unnecessarily replace functioning identity infrastructure.
+
+## 43. AUTHORIZATION
+
+Implement centralized authorization.
+
+Support:
+
+### Model Access
+- Read.
+- Create.
+- Write.
+- Delete.
+
+### Groups and Roles
+- User groups.
+- Permission groups.
+- Group inheritance if justified.
+- Role assignments.
+- Addon-defined permissions.
+
+### Record Rules
+- Domain-based record restrictions.
+- User-specific rules.
+- Group-specific rules.
+- Global restrictions.
+- Company restrictions where applicable.
+
+### Field Access
+- Read permission.
+- Write permission.
+- Sensitive field restrictions.
+- Computed field access.
+
+### Action Access
+- Action execution rights.
+- Method permissions.
+- Server operation permissions.
+
+### API Access
+- Route permissions.
+- Model permissions.
+- Record permissions.
+- Rate limiting where appropriate.
+
+All enforcement must occur on the backend.
+
+## 44. SECURITY INTEGRATION
+
+Every addon model, field, action, menu, view, API, and service must participate in the same security architecture.
+
+Prevent:
+- Permission bypass.
+- Unauthorized record access.
+- Insecure direct object references.
+- Data leaks through computed fields.
+- Unauthorized relational traversal.
+- Unrestricted method execution.
+
+If multi-tenancy or multi-company capabilities are part of the actual product requirements, enforce isolation across ORM, API, search, cache, files, and jobs. Do not implement superficial company switching without backend isolation.
+
+---
+
+# PART XI — API AND RPC PLATFORM
+
+## 45. API GATEWAY
+
+The API must expose consistent platform capabilities.
+
+Support:
+
+- Authentication.
+- Model metadata.
+- CRUD.
+- Search.
+- Search count.
+- Relations.
+- Bulk operations.
+- View metadata.
+- Action resolution.
+- Action execution.
+- Menu resolution.
+- Addon information.
+- User context.
+- Permission metadata.
+- System configuration.
+
+Expose capabilities through a consistent contract.
+
+Do not create unrelated endpoint patterns for each addon.
+
+## 46. RPC ARCHITECTURE
+
+If RPC exists in the current system, audit and consolidate it.
+
+The platform should provide consistent remote operations over:
+- Models.
+- Records.
+- Metadata.
+- Actions.
+- Services.
+- Addon operations.
+
+Define:
+- Method validation.
+- Parameter validation.
+- Authorization.
+- Response contracts.
+- Errors.
+- Version compatibility.
+- Request tracing.
+
+Never expose unrestricted internal service methods through generic RPC.
+
+## 47. API CONTRACTS
+
+Standardize:
+- Request structures.
+- Response envelopes.
+- Error structures.
+- Pagination.
+- Filters.
+- Sort.
+- Context.
+- Domain.
+- Serialization.
+- Date and numeric handling.
+
+Use the existing validation system or a shared schema contract.
+
+Where appropriate, generate API documentation and typed clients from the canonical contracts instead of maintaining duplicate specifications.
+
+## 48. FRONTEND DATA CONTRACT
+
+Provide a stable frontend data access layer.
+
+`apps/web` must not know database schema details or import internal ORM implementation.
+
+The frontend consumes public model metadata and API/RPC contracts.
+
+---
+
+# PART XII — BACKGROUND JOBS, EVENTS & WORKFLOWS
+
+## 49. EVENT SYSTEM
+
+Support:
+- Event definitions.
+- Event registration.
+- Subscribers.
+- Addon subscribers.
+- Event context.
+- Event ordering.
+- Error handling.
+- Logging.
+- Internal event dispatch.
+
+Define execution semantics clearly.
+
+Distinguish synchronous events from asynchronous jobs.
+
+Avoid hidden event execution.
+
+## 50. BACKGROUND JOB ENGINE
+
+Where required by actual platform behavior, support:
+
+- Job registration.
+- Queue abstraction.
+- Execution state.
+- Retry policies.
+- Failure state.
+- Scheduling.
+- Job ownership.
+- Addon job registration.
+- Observability.
+
+Use existing infrastructure where possible.
+
+Do not introduce multiple queue engines.
+
+## 51. SCHEDULER
+
+Provide native scheduled operations where needed:
+
+- Periodic jobs.
+- Scheduled addon actions.
+- Execution history.
+- Failure handling.
+- Concurrency protection.
+- Safe retries.
+
+---
+
+# PART XIII — APPS/API IMPLEMENTATION
+
+## 52. BACKEND TRANSFORMATION
+
+Transform `apps/api` into the authoritative platform backend.
+
+Audit its internal structure and improve responsibilities.
+
+Use clear boundaries for:
+
+- Bootstrap.
+- Configuration.
+- Core runtime.
+- ORM integration.
+- Addon management.
+- Model registry.
+- View registry.
+- Action engine.
+- Security.
+- Services.
+- API handlers.
+- RPC.
+- Jobs.
+- Events.
+- Integrations.
+- Observability.
+
+These are organizational suggestions, not mandatory directory names.
+
+### Required Backend Behavior
+
+A developer must be able to register a model or addon and have the platform expose its supported capabilities consistently.
+
+The backend must be able to resolve:
+- Models.
+- Fields.
+- Relationships.
+- Views.
+- Actions.
+- Menus.
+- Permissions.
+- Search definitions.
+- Application metadata.
+
+Avoid duplicated metadata sources.
+
+### Backend Refactoring Rules
+
+- Separate transport from domain logic.
+- Separate domain logic from persistence mechanics.
+- Use canonical ORM.
+- Validate all inputs.
+- Centralize authorization.
+- Handle errors consistently.
+- Keep internal services reusable.
+- Avoid unnecessary HTTP/RPC-specific business logic.
+- Avoid global mutable state where it causes unpredictable behavior.
+
+---
+
+# PART XIV — APPS/WEB IMPLEMENTATION
+
+## 53. FRONTEND TRANSFORMATION
+
+Transform `apps/web` into a metadata-driven application runtime.
+
+It must be capable of rendering installed addon functionality without hardcoding an individual application page for each model.
+
+## 54. APPLICATION SHELL
+
+Build a unified shell with:
+
+- Application navigation.
+- Menu system.
+- Breadcrumbs.
+- Dynamic workspace.
+- View container.
+- Action handler.
+- Global search.
+- Notifications.
+- User menu.
+- Settings.
+- Loading state.
+- Error handling.
+
+Avoid implementing separate application shells for different addons unless a genuine isolated application experience is required.
+
+## 55. ROUTING ENGINE
+
+Support consistent resource navigation.
+
+Resolve:
+- Application routes.
+- Menus.
+- Actions.
+- Models.
+- Record identifiers.
+- Selected views.
+- Search states.
+- Context.
+
+Use stable URLs where appropriate.
+
+Support direct access and browser navigation.
+
+Prevent route duplication.
+
+## 56. DYNAMIC VIEW RUNTIME
+
+The frontend must consume the backend-resolved view structure.
+
+Support:
+- Dynamic field rendering.
+- View inheritance results.
+- Model-aware forms.
+- List configuration.
+- Search architecture.
+- Relational widgets.
+- Actions.
+- Permissions.
+- Context propagation.
+
+Do not redefine backend model metadata inside React components.
+
+## 57. FORM ENGINE
+
+Build a shared form runtime.
+
+Support:
+- Initial data.
+- Default values.
+- Change tracking.
+- Field validation.
+- Onchange requests.
+- Relational selection.
+- Nested relational forms.
+- Dirty state.
+- Save.
+- Discard.
+- Error states.
+- Readonly mode.
+- Required fields.
+- Conditional behavior.
+
+Prevent unnecessary re-renders and duplicated form state.
+
+## 58. LIST ENGINE
+
+Build a reusable data list/table engine.
+
+Support:
+- Dynamic columns.
+- Server pagination.
+- Search.
+- Filters.
+- Sorting.
+- Grouping.
+- Column configuration.
+- Row selection.
+- Bulk actions.
+- Row actions.
+- Loading.
+- Empty states.
+- Error recovery.
+
+Use efficient rendering for large datasets.
+
+## 59. SEARCH ENGINE
+
+Build reusable search components driven by Search View metadata.
+
+Support:
+- Search inputs.
+- Filter menus.
+- Active filters.
+- Domain composition.
+- Grouping.
+- Saved filters.
+- Sort configuration.
+- Context.
+- Search persistence where appropriate.
+
+Search state must remain synchronized with route and backend request context.
+
+## 60. FIELD WIDGET ENGINE
+
+Build a centralized field widget registry.
+
+The frontend must resolve widgets from canonical field metadata.
+
+Support extension by addons.
+
+Widgets must have consistent interfaces for:
+- Value.
+- Change.
+- Validation.
+- Readonly.
+- Disabled state.
+- Labels.
+- Help.
+- Errors.
+- Context.
+- Relational behavior.
+
+## 61. FRONTEND STATE ARCHITECTURE
+
+Separate:
+- Authentication state.
+- User state.
+- Application state.
+- Navigation state.
+- View state.
+- Search state.
+- Record state.
+- Form state.
+- Server cache.
+- Theme preferences.
+
+Avoid multiple state libraries for overlapping responsibilities.
+
+Use the existing ecosystem where suitable.
+
+## 62. FRONTEND PERFORMANCE
+
+Optimize:
+- Bundle size.
+- Route loading.
+- Component loading.
+- View resolution.
+- Metadata caching.
+- Record fetching.
+- Rendering.
+- Large tables.
+- Form interactions.
+- Search requests.
+
+Use code splitting and lazy loading appropriately.
+
+Avoid excessive global state and unnecessary client-side processing.
+
+---
+
+# PART XV — SHARED UI & SKIN SYSTEM
+
+## 63. SHARED UI FOUNDATION
+
+All addons must use the shared UI foundation.
+
+Provide reusable components for:
+
+- Buttons.
+- Inputs.
+- Selectors.
+- Checkboxes.
+- Radio controls.
+- Date/time controls.
+- Dialogs.
+- Popovers.
+- Dropdowns.
+- Tabs.
+- Menus.
+- Tables.
+- Forms.
+- Notifications.
+- Tooltips.
+- Breadcrumbs.
+- Navigation.
+- Empty states.
+- Loading states.
+- Error states.
+- Layout structures.
+
+Keep components composable and accessible.
+
+Avoid building multiple slightly different versions of the same control.
+
+## 64. DESIGN SYSTEM
+
+Build centralized design tokens.
+
+Support:
+- Color.
+- Typography.
+- Spacing.
+- Borders.
+- Radius.
+- Elevation.
+- Shadows.
+- Animation.
+- Breakpoints.
+- Z-index.
+- Component sizing.
+- Interaction states.
+
+Ensure tokens are consumed consistently across application components.
+
+## 65. MOONWITNESS SKIN ENGINE
+
+Build a real Skin/Theme Engine, not just dark mode.
+
+Support:
+- Skin registry.
+- Theme metadata.
+- Theme activation.
+- Runtime switching.
+- User preferences.
+- Light/dark variants.
+- Color schemes.
+- Typography.
+- Component styling.
+- Layout variants.
+- Brand identity.
+- Addon compatibility.
+- Persistent selection.
+
+Skin changes must not require duplicating view definitions or business logic.
+
+Provide a stable theme contract that shared components and addon widgets can consume.
+
+### MoonWitness Visual Identity
+
+Keep MoonWitness distinctive.
+
+The design direction must not degrade into a generic enterprise SaaS dashboard.
+
+Support visually expressive skins while maintaining a consistent application architecture.
+
+Premium, modern, distinctive, flexible, and performance-conscious.
+
+Avoid repetitive cards, unnecessary decoration, and visual inconsistency.
+
+---
+
+# PART XVI — PLATFORM CAPABILITY ECOSYSTEM
+
+## 66. IDENTIFY AND STRUCTURE PLATFORM-WIDE CAPABILITIES
+
+Evaluate whether MoonWitness needs the following capabilities.
+
+Some belong in the core; others should be optional addons.
+
+Do not force every feature into the Core Runtime.
+
+### User and Organization Management
+- Users.
+- Groups.
+- Roles.
+- Organizations.
+- Teams.
+- Company structures where required.
+
+### Configuration
+- System parameters.
+- Application settings.
+- User preferences.
+- Addon settings.
+- Environment settings.
+- Secure secret references.
+
+### Internationalization
+- Translations.
+- Language settings.
+- Timezones.
+- Date formatting.
+- Number formatting.
+- Currency formatting where applicable.
+
+### Data Management
+- Sequences.
+- Attachments.
+- File references.
+- Import.
+- Export.
+- Bulk operations.
+- Archive.
+- Activity records.
+
+### Communication
+- Notifications.
+- Message history.
+- Email integration.
+- Webhook integration.
+- Activity tracking.
+- Optional discussion or chatter functionality.
+
+### Business Automation
+- Scheduled actions.
+- Server actions.
+- Automated rules.
+- Workflow integration where required.
+
+### Reporting
+- Search-based reports.
+- Aggregations.
+- Graphs.
+- Pivot.
+- Export.
+- Report definitions.
+
+### Operational Features
+- Audit logs.
+- System health.
+- Job history.
+- Addon status.
+- Runtime diagnostics.
+- Backup and recovery integration.
+
+Classify each capability as:
+
+1. Mandatory platform foundation.
+2. Built-in core module.
+3. Optional addon.
+4. External integration.
+5. Not currently needed.
+
+Implement according to priority.
+
+Do not build a huge ERP feature set before establishing the core architecture.
+
+---
+
+# PART XVII — FILES, ATTACHMENTS & STORAGE
+
+## 67. FILE AND RESOURCE ARCHITECTURE
+
+Evaluate existing storage implementations.
+
+If needed, provide a consistent storage abstraction.
+
+Support:
+- File references.
+- Upload.
+- Download.
+- Metadata.
+- File permissions.
+- MIME validation.
+- Size limits.
+- Ownership.
+- Attachment relationships.
+- Cleanup policies.
+- Storage adapter boundaries.
+
+Do not store large binary payloads directly in ordinary model records unless justified.
+
+All file access must respect backend permissions.
+
+Avoid exposing internal storage paths.
+
+---
+
+# PART XVIII — PACKAGE ECOSYSTEM
+
+## 68. TRANSFORM ALL PACKAGES
+
+Audit and transform every existing package under `packages/*`.
+
+Do not only inspect packages that appear related to ORM or UI.
+
+For every package determine:
+
+- Responsibility.
+- Public API.
+- Consumers.
+- Dependencies.
+- Runtime role.
+- Reusability.
+- Test coverage.
+- Duplication.
+- Correct location.
+
+### 68.1 Package Categories
+
+Use logical categories where appropriate:
+
+**Foundation**
+- Core contracts.
+- Identifiers.
+- Errors.
+- Validation.
+- Shared utilities.
+- Configuration.
+
+**Data**
+- ORM.
+- Model metadata.
+- Field engine.
+- Relationship support.
+- Query domains.
+
+**Modularity**
+- Addon contracts.
+- Registry.
+- Dependency resolution.
+- Lifecycle.
+- Extension.
+
+**Application**
+- Model–View.
+- Actions.
+- Menus.
+- Context.
+- Search.
+
+**Security**
+- Identity contracts.
+- Permissions.
+- Policies.
+
+**Backend**
+- API contracts.
+- RPC.
+- Services.
+- Event contracts.
+- Job interfaces.
+
+**Frontend**
+- Runtime contracts.
+- Dynamic renderer.
+- Field widgets.
+- Data access.
+- Navigation.
+
+**UI**
+- Design tokens.
+- Components.
+- Form primitives.
+- Table engine.
+- Shared interactions.
+
+**Theme**
+- Skin definitions.
+- Theme registry.
+- Theme resolution.
+
+**Developer Experience**
+- CLI.
+- Addon templates.
+- Test helpers.
+- Validators.
+- Development utilities.
+
+Do not blindly create packages for each category.
+
+### 68.2 Package Rules
+
+Every package should have:
+- One clear responsibility.
+- Public exports.
+- Explicit dependencies.
+- Stable interfaces.
+- Appropriate tests.
+- Clear documentation.
+- Consistent naming.
+- No circular dependencies.
+
+Do not import private internal modules from another package.
+
+Do not duplicate contracts.
+
+Do not create wrapper packages that only re-export one line unless there is a real architectural requirement.
+
+### 68.3 Package Consolidation
+
+Merge packages when:
+- Their responsibilities overlap.
+- They have tightly coupled implementation.
+- Their boundaries create unnecessary complexity.
+- Their separate publication or testing provides no value.
+
+Split packages when:
+- There is a genuine independent responsibility.
+- There is reuse across applications.
+- The boundary reduces coupling.
+- The package has a meaningful public API.
+
+Keep the monorepo as simple as possible.
+
+---
+
+# PART XIX — INTEGRATION CONTRACTS
+
+## 69. COMPLETE PLATFORM LIFECYCLE
+
+The architecture must support a complete addon-to-frontend lifecycle.
+
+### Example: Creating a New Addon
+
+A developer creates an addon that defines:
+
+- A new model.
+- Fields.
+- Relationships.
+- Constraints.
+- Permissions.
+- A List View.
+- A Form View.
+- A Search View.
+- An Action.
+- A Menu.
+- Optional custom widgets.
+- Optional services.
+
+The platform must automatically:
+
+1. Discover the addon.
+2. Validate the manifest.
+3. Resolve dependencies.
+4. Register model definitions.
+5. Register fields and relationships.
+6. Synchronize the ORM schema.
+7. Register permissions.
+8. Register services.
+9. Register views.
+10. Resolve view inheritance.
+11. Register actions.
+12. Register menus.
+13. Publish updated metadata.
+14. Resolve the new navigation entries.
+15. Render the model in `apps/web`.
+16. Perform data operations through the canonical API.
+17. Enforce access rules.
+18. Handle addon updates safely.
+
+The developer must not need to modify unrelated core files or create a custom frontend page for every model.
+
+### Example: Adding a New Field
+
+A developer extends an existing model with a field.
+
+The platform must:
+- Discover the field.
+- Validate its definition.
+- Synchronize the database schema when installed/upgraded.
+- Update model metadata.
+- Make the field available to views.
+- Select an appropriate widget.
+- Respect permissions.
+- Support normal create/read/write operations.
+
+### Example: Extending an Existing View
+
+An addon extends an existing form.
+
+The platform must:
+- Resolve the base view.
+- Apply the extension.
+- Validate selectors.
+- Resolve conflicts.
+- Return the final architecture.
+- Render it without duplicating the original form.
+
+These scenarios must work through actual execution paths, not merely exist as documentation.
+
+---
+
+# PART XX — SECURITY, PERFORMANCE & RELIABILITY
+
+## 70. SECURITY REVIEW
+
+Audit the complete system for:
+
+- SQL injection.
+- XSS.
+- CSRF.
+- Authentication bypass.
+- Authorization bypass.
+- IDOR.
+- Session weaknesses.
+- Sensitive metadata leakage.
+- Insecure file access.
+- Unrestricted RPC.
+- Unsafe dynamic execution.
+- Addon trust boundaries.
+- Dependency vulnerabilities.
+- Secret exposure.
+- Mass assignment.
+- Insecure relational traversal.
+- Improper error disclosure.
+
+Validate all incoming data.
+
+Apply security at every relevant execution boundary.
+
+## 71. PERFORMANCE REVIEW
+
+Measure and improve:
+
+- Backend startup.
+- Addon discovery.
+- Registry construction.
+- ORM query execution.
+- Query counts.
+- Relationship loading.
+- API latency.
+- View metadata resolution.
+- Cache hit rate.
+- Frontend bundle size.
+- Rendering time.
+- Memory usage.
+- Large dataset performance.
+
+Prevent N+1 queries.
+
+Use appropriate database indexes.
+
+Use caching for stable metadata.
+
+Invalidate caches deterministically.
+
+Avoid premature optimization and unjustified infrastructure.
+
+## 72. RELIABILITY
+
+Implement and verify:
+- Health checks.
+- Structured logs.
+- Centralized error handling.
+- Transaction safety.
+- Upgrade recovery.
+- Job error handling.
+- Graceful shutdown.
+- Backup considerations.
+- Data integrity checks.
+- Runtime diagnostics.
+
+---
+
+# PART XXI — TESTING STRATEGY
+
+## 73. TEST PYRAMID
+
+Build a complete test strategy.
+
+### Unit Tests
+Verify individual contracts and components.
+
+### Integration Tests
+Verify interactions between ORM, addons, services, API, security, and View Engine.
+
+### End-to-End Tests
+Verify actual user workflows through `apps/web` and `apps/api`.
+
+### Regression Tests
+Protect existing functionality.
+
+### Performance Tests
+Measure important bottlenecks.
+
+### Security Tests
+Verify actual access enforcement and input boundaries.
+
+## 74. MANDATORY TEST SCENARIOS
+
+### ORM
+- Model registration.
+- Duplicate models.
+- Field validation.
+- Model inheritance.
+- Relations.
+- Computed fields.
+- Constraints.
+- Transactions.
+- Domain queries.
+- Bulk operations.
+- Schema synchronization.
+- Data preservation.
+
+### Addon
+- Valid manifest.
+- Invalid manifest.
+- Discovery.
+- Missing dependency.
+- Circular dependency.
+- Installation.
+- Repeated installation.
+- Upgrade.
+- Disable.
+- Uninstall.
+- Extension conflict.
+- Failed installation recovery.
+
+### Model–View
+- View registration.
+- Default view generation.
+- List rendering.
+- Form rendering.
+- Search.
+- Relational fields.
+- View inheritance.
+- Invalid selectors.
+- Field widget resolution.
+- Permission-aware view resolution.
+
+### API/RPC
+- Model metadata.
+- CRUD.
+- Search.
+- Pagination.
+- Domains.
+- Context.
+- Actions.
+- Authorization.
+- Validation.
+- Error handling.
+
+### Frontend
+- Application boot.
+- Menu resolution.
+- Route navigation.
+- Dynamic view rendering.
+- Form create/edit.
+- List interactions.
+- Search.
+- Relations.
+- Field widget behavior.
+- Skin switching.
+- Permission restrictions.
+
+### Complete End-to-End Scenario
+
+Install a real test addon that registers a new ORM model.
+
+Verify:
+1. Addon discovery.
+2. Manifest validation.
+3. Model registration.
+4. Database schema creation.
+5. Permission registration.
+6. View registration.
+7. Action registration.
+8. Menu registration.
+9. Dynamic frontend rendering.
+10. Record creation.
+11. Record search.
+12. Record update.
+13. Relational behavior.
+14. Access enforcement.
+15. Addon upgrade.
+16. Existing data preservation.
+17. Safe uninstall.
+
+This is a critical platform acceptance test.
+
+---
+
+# PART XXII — DEVELOPER EXPERIENCE
+
+## 75. ADDON DEVELOPMENT WORKFLOW
+
+Make the platform easy to extend.
+
+A developer should understand:
+
+- Where models belong.
+- How fields are defined.
+- How relationships are declared.
+- How views are defined.
+- How view inheritance works.
+- How actions are declared.
+- How menus are registered.
+- How permissions are defined.
+- How services are registered.
+- How custom widgets are created.
+- How addons are installed and upgraded.
+- How tests are written.
+
+Provide canonical examples.
+
+## 76. COMMAND-LINE TOOLING
+
+Inspect existing tooling first.
+
+Improve or create the minimum useful developer commands where needed:
+
+- Development startup.
+- Build.
+- Test.
+- Lint.
+- Type check.
+- Package validation.
+- Addon validation.
+- Addon discovery.
+- Addon installation.
+- Addon upgrade.
+- Registry diagnostics.
+- Schema inspection.
+- Runtime diagnostics.
+
+Do not create a separate complex CLI if the existing tools already provide the necessary operations.
+
+## 77. LOCAL DEVELOPMENT
+
+Ensure a developer can start the project using documented commands.
+
+Inspect:
+- Database configuration.
+- Environment requirements.
+- Build process.
+- Workspace installation.
+- Application startup.
+- Addon loading.
+- Test database.
+- Development mode.
+
+Resolve broken scripts and incomplete setup instructions.
+
+Never document imaginary commands.
+
+---
+
+# PART XXIII — CONFIGURATION & ENVIRONMENT
+
+## 78. CENTRALIZED CONFIGURATION
+
+Establish consistent configuration management.
+
+Support:
+- Application configuration.
+- Database configuration.
+- Security configuration.
+- Addon configuration.
+- Runtime configuration.
+- External integrations.
+- Environment-specific settings.
+
+Validate configuration at startup.
+
+Provide safe defaults where possible.
+
+Never commit secrets.
+
+Never expose secrets through metadata APIs or frontend bundles.
+
+Avoid multiple competing configuration systems.
+
+---
+
+# PART XXIV — OBSERVABILITY & OPERATIONS
+
+## 79. PLATFORM OBSERVABILITY
+
+Provide consistent operational visibility.
+
+Support:
+- Structured logs.
+- Request IDs.
+- Error context.
+- Performance measurements.
+- Application health.
+- Database health.
+- Addon status.
+- Registry status.
+- Job status.
+- Upgrade execution history.
+- System diagnostics.
+
+Support tracing where justified.
+
+Keep observability lightweight.
+
+## 80. BACKUP & RECOVERY
+
+Evaluate:
+- Database backup.
+- File storage backup.
+- Restore procedures.
+- Schema recovery.
+- Addon state recovery.
+- Upgrade failure recovery.
+- Data integrity verification.
+
+Do not claim successful restore capability without a tested procedure.
+
+---
+
+# PART XXV — PRODUCT QUALITY & MOONWITNESS IDENTITY
+
+## 81. PRODUCT CONSISTENCY
+
+MoonWitness must feel like one complete platform.
+
+Avoid:
+- Different UI patterns across addons.
+- Different data models for the same concept.
+- Different permission semantics.
+- Inconsistent menus.
+- Independent API conventions.
+- Duplicate configuration.
+- Separate authentication logic.
+- Unrelated visual identities.
+
+Maintain one unified product experience.
+
+## 82. VISUAL AND INTERACTION QUALITY
+
+The frontend must be:
+- Fast.
+- Responsive.
+- Accessible.
+- Consistent.
+- Intuitive.
+- Customizable.
+- Visually distinctive.
+
+Use MoonWitness branding rather than generic template defaults.
+
+Do not introduce unrelated branding or unnecessary third-party product identity.
+
+Preserve the established MoonWitness visual language while improving execution quality.
+
+---
+
+# PART XXVI — IMPLEMENTATION GOVERNANCE
+
+## 83. PRIORITY ORDER
+
+Prioritize work based on dependencies and risk.
+
+### P0 — Critical
+- Existing runtime brokenness.
+- Data corruption risks.
+- Security vulnerabilities.
+- Critical API failures.
+- Broken workspace builds.
+- Core architectural conflicts.
+
+### P1 — Platform Foundation
+- Core Runtime.
+- ORM.
+- Model Registry.
+- Addon Engine.
+- Schema synchronization.
+- Security.
+- API/RPC contracts.
+
+### P2 — Dynamic Application Engine
+- Model–View Engine.
+- Field widgets.
+- Actions.
+- Menus.
+- Domains.
+- Context.
+
+### P3 — Frontend Runtime
+- Application Shell.
+- Dynamic Renderer.
+- Form Engine.
+- List Engine.
+- Search Engine.
+- Navigation.
+
+### P4 — Shared Ecosystem
+- Package consolidation.
+- Shared UI.
+- Skin Engine.
+- Developer tooling.
+
+### P5 — Advanced Capabilities
+- Background jobs.
+- Reports.
+- Automation.
+- Internationalization.
+- Advanced integrations.
+- Optional business addons.
+
+Do not implement P5 before P0–P2 are stable.
+
+## 84. TASK DESIGN
+
+Each task must have:
+
+- Clear objective.
+- Exact scope.
+- Dependencies.
+- Files or modules affected.
+- Acceptance criteria.
+- Tests.
+- Completion evidence.
+
+Prefer small, atomic tasks.
+
+Avoid overlapping work.
+
+Reconcile existing GitHub issues and project plans before creating new ones.
+
+Do not duplicate issue tracking systems.
+
+---
+
+# PART XXVII — NON-NEGOTIABLE ENGINEERING RULES
+
+## 85. CODE QUALITY
+
+1. Inspect existing implementation before adding new code.
+2. Reuse working functionality.
+3. Prefer clear code over clever abstractions.
+4. Use consistent naming.
+5. Keep functions and modules focused.
+6. Avoid duplicated logic.
+7. Avoid unnecessary dependency additions.
+8. Avoid unnecessary packages.
+9. Avoid circular dependencies.
+10. Avoid hidden global state.
+11. Keep public interfaces explicit.
+12. Validate external inputs.
+13. Handle errors properly.
+14. Keep tests meaningful.
+15. Update relevant documentation.
+
+## 86. DATA SAFETY
+
+1. Preserve existing database records.
+2. Never silently drop user data.
+3. Never perform destructive schema changes without explicit safeguards.
+4. Never overwrite user changes.
+5. Never assume a database is disposable.
+6. Test schema synchronization against representative data.
+7. Treat addon uninstall as a potentially destructive operation.
+8. Verify data preservation during upgrades.
+
+## 87. ARCHITECTURE SAFETY
+
+1. Never introduce a second ORM.
+2. Never introduce a competing Addon Engine.
+3. Never duplicate Model Registry.
+4. Never duplicate View Registry.
+5. Never duplicate permission systems.
+6. Never duplicate frontend model metadata.
+7. Never let addons independently bypass platform architecture.
+8. Never build a standalone generic migration framework.
+9. Never build unnecessary micro-packages.
+10. Never create an abstraction without an actual use case.
+
+## 88. PRODUCTION INTEGRITY
+
+1. Do not use mock data in production paths.
+2. Do not leave incomplete placeholders.
+3. Do not fake API responses.
+4. Do not hide failed tests.
+5. Do not disable meaningful validation to pass builds.
+6. Do not mark unimplemented features as completed.
+7. Do not claim security without testing.
+8. Do not claim performance gains without measurements.
+9. Do not claim successful deployment without verification.
+10. Document real blockers and limitations.
+
+---
+
+# PART XXVIII — GIT & CHANGE MANAGEMENT
+
+## 89. SAFE REPOSITORY OPERATIONS
+
+Before modifying the repository:
+
+- Inspect current branch.
+- Inspect Git status.
+- Inspect current changes.
+- Inspect repository conventions.
+- Identify user-owned uncommitted work.
+- Review current development workflow.
+
+Preserve unrelated changes.
+
+Prefer the established dev-first workflow.
+
+- Implement and integrate on the development branch.
+- Do not push directly to main/master without explicit authorization.
+- Avoid unnecessary new branches.
+- Avoid unrelated file changes.
+- Keep changes logically grouped.
+- Do not overwrite existing user work.
+- Do not create duplicate commits.
+- Verify remote operations before reporting success.
+
+Do not perform irreversible actions on user data or repository history.
+
+---
+
+# PART XXIX — FULL EXECUTION SEQUENCE
+
+## 90. PHASE 0 — REPOSITORY SAFETY
+
+Inspect:
+- Git status.
+- Current branch.
+- Workspace configuration.
+- Existing plans.
+- User changes.
+- Current build and test state.
+
+Establish the real baseline.
+
+## 91. PHASE 1 — DISCOVERY
+
+Inspect all applications and packages.
+
+Understand the actual implementation and execution path.
+
+Create the repository map.
+
+## 92. PHASE 2 — DEEP AUDIT
+
+Audit all foundations.
+
+Identify:
+- Critical defects.
+- Architectural inconsistencies.
+- Duplication.
+- Missing functionality.
+- Security risks.
+- Performance issues.
+- Compatibility risks.
+
+Prioritize actual problems.
+
+## 93. PHASE 3 — ARCHITECTURE DESIGN
+
+Define:
+- Core Runtime.
+- ORM architecture.
+- Model Registry.
+- Addon lifecycle.
+- Model–View Engine.
+- Security system.
+- API/RPC contract.
+- Web Runtime.
+- Shared Packages.
+- Skin architecture.
+
+Document only essential decisions.
+
+## 94. PHASE 4 — FOUNDATION IMPLEMENTATION
+
+Build or improve:
+- Core Runtime.
+- ORM.
+- Model Engine.
+- Field Engine.
+- Relationships.
+- Query Engine.
+- Transaction Management.
+- ORM Schema Management.
+- Addon Registry.
+- Addon Lifecycle.
+
+Implement in dependency order.
+
+## 95. PHASE 5 — MODEL–VIEW & APPLICATION ENGINE
+
+Build or improve:
+- View Registry.
+- Declarative Views.
+- View Inheritance.
+- Default View Generation.
+- Field Widget Registry.
+- Domain Engine.
+- Context Engine.
+- Action Engine.
+- Menu Engine.
+- Permissions Integration.
+
+## 96. PHASE 6 — BACKEND TRANSFORMATION
+
+Improve `apps/api`.
+
+Integrate every platform engine through public contracts.
+
+Verify real execution paths.
+
+## 97. PHASE 7 — FRONTEND TRANSFORMATION
+
+Improve `apps/web`.
+
+Implement:
+- Application Shell.
+- Routing.
+- Dynamic Rendering.
+- List.
+- Form.
+- Search.
+- Relational widgets.
+- Actions.
+- Navigation.
+- State management.
+- Skin system.
+
+## 98. PHASE 8 — PACKAGE CONSOLIDATION
+
+Refactor `packages/*`.
+
+Fix:
+- Package ownership.
+- Public exports.
+- Dependency direction.
+- Duplicate implementations.
+- Circular imports.
+- Workspace configuration.
+
+## 99. PHASE 9 — CROSS-LAYER INTEGRATION
+
+Run actual end-to-end addon scenarios.
+
+Make sure backend and frontend work together.
+
+## 100. PHASE 10 — PERFORMANCE & SECURITY
+
+Benchmark relevant paths.
+
+Fix identified issues.
+
+Perform security review and regression tests.
+
+## 101. PHASE 11 — FINAL REFINEMENT
+
+Re-audit the repository after implementation.
+
+Find:
+- Leftover duplicate systems.
+- Incomplete integration.
+- Unused dependencies.
+- Invalid package boundaries.
+- Missing tests.
+- Architectural inconsistencies.
+- Documentation drift.
+
+Fix remaining issues.
+
+## 102. PHASE 12 — FINAL VERIFICATION
+
+Execute the final quality gates.
+
+Verify real functionality, not merely successful compilation.
+
+Do not stop after a phase if significant safely achievable work remains.
+
+---
+
+# PART XXX — DEFINITION OF DONE
+
+## 103. PLATFORM FOUNDATION
+
+- One Core Runtime.
+- One canonical ORM.
+- One Model Registry.
+- One Addon Registry.
+- One View Registry.
+- One Action Engine.
+- One Security Architecture.
+- Consistent public contracts.
+
+## 104. ORM
+
+- Models work.
+- Fields work.
+- Relations work.
+- Computed fields work.
+- Constraints work.
+- Transactions work.
+- Queries work.
+- Schema synchronization works.
+- Existing data is preserved.
+
+## 105. ADDON
+
+- Manifest validation works.
+- Discovery works.
+- Dependencies work.
+- Installation works.
+- Upgrade works.
+- Uninstall works safely.
+- Model extension works.
+- View extension works.
+- Actions and menus register correctly.
+
+## 106. MODEL–VIEW
+
+- Model metadata is available.
+- Views are registered by addons.
+- List works.
+- Form works.
+- Search works.
+- Default views work.
+- Inheritance works.
+- Relational widgets work.
+- Permissions are respected.
+
+## 107. BACKEND
+
+- `apps/api` follows canonical architecture.
+- API/RPC is consistent.
+- Services are reusable.
+- Security is centrally enforced.
+- Error handling is consistent.
+- No normal data operations bypass ORM.
+
+## 108. FRONTEND
+
+- `apps/web` uses the platform metadata.
+- Dynamic views work.
+- Actions work.
+- Menus work.
+- Search works.
+- Forms work.
+- Lists work.
+- Shared widgets work.
+- Skin switching works.
+- Backend authorization is respected.
+
+## 109. PACKAGES
+
+- Responsibilities are clear.
+- Exports are consistent.
+- Dependencies are correct.
+- No circular dependency.
+- No unnecessary duplication.
+- All affected packages build and test.
+
+## 110. PRODUCTION QUALITY
+
+- Critical tests pass.
+- Integration tests pass.
+- Builds succeed.
+- Security risks are addressed.
+- Data integrity is verified.
+- Performance bottlenecks are measured.
+- No critical regression is introduced.
+- Documentation is accurate.
+- Remaining blockers are transparent.
+
+Never mark an area complete merely because its type definitions, interface, database table, route, mock response, or frontend component exists.
+
+A capability is complete only when its real lifecycle works.
+
+---
+
+# PART XXXI — FINAL DELIVERY REPORT
+
+At the end, produce a concise but evidence-based report containing:
+
+### 1. Executive Summary
+What was actually transformed.
+
+### 2. Architecture Changes
+Major structural changes and their rationale.
+
+### 3. Backend Results
+`apps/api` improvements.
+
+### 4. Frontend Results
+`apps/web` improvements.
+
+### 5. ORM & Addon Results
+Model engine, schema management, lifecycle, and extension.
+
+### 6. Model–View Results
+Views, widgets, actions, menus, and dynamic rendering.
+
+### 7. Package Results
+Consolidated, modified, added, or removed packages.
+
+### 8. Security and Performance
+Fixes and measurable verification.
+
+### 9. Testing Evidence
+Commands executed and actual results.
+
+### 10. Git Changes
+Branch, commits, modified areas, and remote status where verified.
+
+### 11. Outstanding Work
+Only real unfinished work, blockers, or deferred features.
+
+For every major completion claim, provide implementation or test evidence.
+
+Clearly distinguish:
+- Implemented and verified.
+- Implemented but not fully verified.
+- Partially implemented.
+- Not implemented.
+- Blocked.
+
+Never fabricate test results or completion status.
+
+---
+
+# FINAL COMMAND — START EXECUTION NOW
+
+You are not being asked to write a plan for another engineer.
+
+You are the engineering organization responsible for delivering MoonWitness.
+
+Inspect the repository and actual code.
+
+Understand what already exists.
+
+Find the problems.
+
+Challenge existing architecture where necessary.
+
+Brainstorm alternatives.
+
+Select the simplest robust design.
+
+Implement the highest-priority improvements.
+
+Integrate every layer.
+
+Test real behavior.
+
+Fix regression.
+
+Refine the architecture.
+
+Continue until the achievable scope has been implemented and verified.
+
+Do not repeatedly ask the user for approval on ordinary engineering decisions.
+
+Do not stop at documentation.
+
+Do not stop at the first successful build.
+
+Do not build duplicate systems.
+
+Do not overengineer.
+
+Do not compromise data integrity.
+
+Do not declare features complete without evidence.
+
+If full completion is impossible within available execution limits, finish the most valuable coherent vertical slices, preserve repository integrity, and report exact remaining work. Never pretend incomplete work is finished.
+
+**THE ULTIMATE PRINCIPLE: ONE PLATFORM, ONE CANONICAL ARCHITECTURE, ONE CONSISTENT ENGINEERING STANDARD.**
+
+# MOONWITNESS
+
+**ORM defines the data.  
+Addons compose the capabilities.  
+Models define business structures.  
+Views define the experience.  
+Actions execute operations.  
+Permissions protect the platform.  
+API/RPC connects applications.  
+Shared packages unify the ecosystem.  
+Skins transform the visual identity.  
+Core Runtime makes everything work together.**
+
+Build MoonWitness as a genuinely integrated, modern, extensible, lightweight, secure, and production-grade application platform.
+
+**START NOW. INSPECT EVERYTHING. TRANSFORM THE ENTIRE ECOSYSTEM. IMPLEMENT. INTEGRATE. VERIFY.**

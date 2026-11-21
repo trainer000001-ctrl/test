@@ -1,0 +1,102 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# turbo
+.turbo/
+.vinext/
+.cloudflare/
+
+# testing
+coverage/
+test-results/
+apps/web/pacts/
+
+# local database artifacts (libSQL/SQLite write these next to the app)
+*.db
+*.db-shm
+*.db-wal
+
+# env
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+debug.log
+
+# ide
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# vercel
+.vercel
+# local tool state
+.codeartsdoer/
+
+# verification artifacts (screenshot pembanding antar fase)
+.verify/
+
+# internals / agent scratch
+.plan/
+.qoder-collab-runtime/
+.verify/
+
+# stray build artefacts
+*.bak
+*.bak2
+
+# generated TypeScript emit inside src (should never be committed)
+packages/*/src/**/*.js
+packages/*/src/**/*.js.map
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.d.ts.map
+!packages/*/src/**/*.config.js
+
+# test/report artefacts
+playwright-report/
+test-results/
+services/*/target/
+
+# Rust build output
+services/*/target/
+
+# Qoder tool worktrees
+.qoder/
+
+# Local raw ChatGPT archives & runtime memory vault data (stored safely in gitignored services/memory/data/inbox)
+.raw_archives/
+services/memory/data/
+services/memory/**/__pycache__/
+services/memory/.env
+venv/
+.venv/
+
+# ROCKSOUL desktop build/screenshot scratch outputs
+apps/rocksoul/src-tauri/target/
+apps/rocksoul/shots/
+apps/rocksoul/test-results/
+apps/rocksoul/.taste-skill/
+.taste-skill/
+
+# Local raw image scratch mockups (optimized deliverables live in apps/web/public/art)
+vibe_images/
+arts/
+
+/apps/edge/.wrangler/

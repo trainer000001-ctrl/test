@@ -1,0 +1,20 @@
+{
+  "name": "@moonwitness/addon-runtime",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./registry": "./src/registry.ts",
+    "./views": "./src/views.ts",
+    "./security": "./src/security.ts",
+    "./outbox": "./src/outbox.ts",
+    "./http": "./src/http.ts"
+  },
+  "dependencies": {
+    "@moonwitness/canon": "*",
+    "@moonwitness/core": "*",
+    "@moonwitness/orm": "*",
+    "zod": "^4.3.6"
+  }
+}

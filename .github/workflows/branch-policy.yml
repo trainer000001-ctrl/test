@@ -1,0 +1,80 @@
+name: Branch policy
+
+on:
+  pull_request:
+    branches: [dev, main]
+    types: [opened, edited, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  policy:
+    name: Enforce branch and commit policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Pull requests must target dev or main
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          case "$BASE_REF" in
+            dev|main) echo "base branch '$BASE_REF' is allowed" ;;
+            *)
+              echo "::error::Pull requests must target 'dev' or 'main', got '$BASE_REF'."
+              exit 1
+              ;;
+          esac
+
+      - name: Work branches targeting dev must use short-lived ephemeral prefixes
+        if: github.base_ref == 'dev'
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          case "$HEAD_REF" in
+            feat/*|fix/*|chore/*|ci/*|docs/*|refactor/*|test/*|dependabot/*|release-please--*)
+              echo "head branch '$HEAD_REF' matches allowed ephemeral PR prefix"
+              ;;
+            *)
+              echo "::error::Only dev and main persist long-term. PRs into 'dev' must use a single-PR ephemeral branch (feat/*, fix/*, chore/*, ci/*, docs/*, refactor/*, test/*), got '$HEAD_REF'."
+              exit 1
+              ;;
+          esac
+
+      - name: main only accepts promotions from dev
+        if: github.base_ref == 'main'
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          case "$HEAD_REF" in
+            dev|release-please--*)
+              echo "head branch '$HEAD_REF' may target main" ;;
+            *)
+              echo "::error::'main' only accepts promotions from 'dev' or Release Please. Got '$HEAD_REF'."
+              exit 1
+              ;;
+          esac
+
+      - name: Commits must follow Conventional Commits
+        # Promosi dev->main membawa seluruh histori dev yang sudah lolos gate
+        # saat masuk dev; melint ulang di sini hanya menghasilkan kegagalan
+        # karena commit lama. Gate ini berlaku untuk PR fitur (ke dev).
+        if: github.base_ref != 'main' && github.head_ref != 'dev' && !startsWith(github.head_ref, 'dependabot/')
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node scripts/commitlint.mjs --range "$BASE_SHA..$HEAD_SHA"

@@ -1,0 +1,11 @@
+{
+  "name": "@moonwitness/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./sdk": "./src/sdk.ts",
+    "./types": "./src/types.ts"
+  }
+}

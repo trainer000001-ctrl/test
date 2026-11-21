@@ -1,0 +1,371 @@
+name: Deploy
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Reviewed release tag to deploy (for example v0.1.0)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy verified release to VPS
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment:
+      name: production
+      url: ${{ vars.PRODUCTION_URL }}
+    steps:
+      - name: Resolve and validate release tag
+        id: release
+        env:
+          EVENT_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="${EVENT_TAG:-$INPUT_TAG}"
+          if [[ ! "$tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::A semantic version release tag such as v0.1.0 is required."
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout immutable release candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ steps.release.outputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify release tag and reviewed main ancestry
+        id: source
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin refs/heads/main:refs/remotes/origin/main
+          tag_sha="$(git rev-parse "refs/tags/${TAG}^{commit}")"
+          checked_out_sha="$(git rev-parse HEAD)"
+
+          if [ "$tag_sha" != "$checked_out_sha" ]; then
+            echo "::error::The checked-out commit does not match the resolved release tag."
+            exit 1
+          fi
+          if ! git merge-base --is-ancestor "$tag_sha" origin/main; then
+            echo "::error::The release tag is not contained in the reviewed main branch."
+            exit 1
+          fi
+
+          echo "sha=$tag_sha" >> "$GITHUB_OUTPUT"
+          echo "Verified release $TAG at $tag_sha (reachable from main)."
+
+      - name: Validate production connection settings
+        id: creds
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+          VPS_PORT: ${{ vars.VPS_PORT || '22' }}
+          VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH }}
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+          PRODUCTION_API_URL: ${{ vars.PRODUCTION_API_URL }}
+          PRODUCTION_IDENTITY_URL: ${{ vars.PRODUCTION_IDENTITY_URL }}
+          MIN_FREE_DISK_MB: ${{ vars.MIN_FREE_DISK_MB || '1024' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=""
+          [ -z "$VPS_HOST" ] && missing="$missing VPS_HOST(secret)"
+          [ -z "$VPS_USER" ] && missing="$missing VPS_USER(secret)"
+          [ -z "$VPS_SSH_KEY" ] && missing="$missing VPS_SSH_KEY(secret)"
+          [ -z "$VPS_SSH_KNOWN_HOSTS" ] && missing="$missing VPS_SSH_KNOWN_HOSTS(secret)"
+          [ -z "$VPS_DEPLOY_PATH" ] && missing="$missing VPS_DEPLOY_PATH(var)"
+          [ -z "$PRODUCTION_URL" ] && missing="$missing PRODUCTION_URL(var)"
+          [ -z "$PRODUCTION_API_URL" ] && missing="$missing PRODUCTION_API_URL(var)"
+          [ -z "$PRODUCTION_IDENTITY_URL" ] && missing="$missing PRODUCTION_IDENTITY_URL(var)"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing required production settings:$missing"
+            exit 1
+          fi
+
+          if [[ ! "$VPS_HOST" =~ ^[A-Za-z0-9.-]+$ ]]; then
+            echo "::error::VPS_HOST must be a hostname or IPv4 address without shell metacharacters."
+            exit 1
+          fi
+          if [[ ! "$VPS_USER" =~ ^[a-z_][a-z0-9_-]*$ ]]; then
+            echo "::error::VPS_USER contains unsupported characters."
+            exit 1
+          fi
+          if [[ ! "$VPS_PORT" =~ ^[0-9]{1,5}$ ]] || [ "$VPS_PORT" -lt 1 ] || [ "$VPS_PORT" -gt 65535 ]; then
+            echo "::error::VPS_PORT must be an integer from 1 to 65535."
+            exit 1
+          fi
+          if [[ ! "$VPS_DEPLOY_PATH" =~ ^/[A-Za-z0-9_./-]+$ ]] ||
+             [[ "$VPS_DEPLOY_PATH" == *"/../"* ]] ||
+             [[ "$VPS_DEPLOY_PATH" == */.. ]] ||
+             [[ "$VPS_DEPLOY_PATH" == *"/./"* ]] ||
+             [[ "$VPS_DEPLOY_PATH" == *"//"* ]]; then
+            echo "::error::VPS_DEPLOY_PATH must be a normalized absolute path using only safe path characters."
+            exit 1
+          fi
+          for url in "$PRODUCTION_URL" "$PRODUCTION_API_URL" "$PRODUCTION_IDENTITY_URL"; do
+            if [[ ! "$url" =~ ^https://[A-Za-z0-9.-]+(:[0-9]{1,5})?/?$ ]]; then
+              echo "::error::Production URLs must be HTTPS origins without paths, credentials, or query strings."
+              exit 1
+            fi
+          done
+          if [[ ! "$MIN_FREE_DISK_MB" =~ ^[0-9]{1,7}$ ]]; then
+            echo "::error::MIN_FREE_DISK_MB must be an integer of at least 256."
+            exit 1
+          fi
+          MIN_FREE_DISK_MB=$((10#$MIN_FREE_DISK_MB))
+          if [ "$MIN_FREE_DISK_MB" -lt 256 ]; then
+            echo "::error::MIN_FREE_DISK_MB must be an integer of at least 256."
+            exit 1
+          fi
+
+          echo "configured=true" >> "$GITHUB_OUTPUT"
+
+      - name: Configure pinned SSH identity and host key
+        if: steps.creds.outputs.configured == 'true'
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_SSH_KNOWN_HOSTS: ${{ secrets.VPS_SSH_KNOWN_HOSTS }}
+          VPS_PORT: ${{ vars.VPS_PORT || '22' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 ~/.ssh
+          umask 077
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$VPS_SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+          if [ ! -s ~/.ssh/known_hosts ]; then
+            echo "::error::Pinned known_hosts data is empty."
+            exit 1
+          fi
+          cat > ~/.ssh/config <<EOF
+          Host moonwitness-production
+            HostName $VPS_HOST
+            User $VPS_USER
+            Port $VPS_PORT
+            IdentityFile ~/.ssh/id_ed25519
+            IdentitiesOnly yes
+            BatchMode yes
+            StrictHostKeyChecking yes
+            UserKnownHostsFile ~/.ssh/known_hosts
+            GlobalKnownHostsFile /dev/null
+          EOF
+          chmod 600 ~/.ssh/config
+
+      - name: Pre-flight and capture exact previous release
+        id: preflight
+        if: steps.creds.outputs.configured == 'true'
+        env:
+          VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH }}
+          MIN_FREE_DISK_MB: ${{ vars.MIN_FREE_DISK_MB || '1024' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(ssh moonwitness-production env VPS_DEPLOY_PATH="$VPS_DEPLOY_PATH" MIN_FREE_DISK_MB="$MIN_FREE_DISK_MB" bash -s <<'REMOTE'
+            set -euo pipefail
+            cd "$VPS_DEPLOY_PATH"
+            git rev-parse --is-inside-work-tree >/dev/null
+            if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+              echo "ERROR: tracked deployment files have local modifications." >&2
+              exit 1
+            fi
+            docker info --format '{{.ServerVersion}}' >&2
+            test -f docker-compose.yml
+            docker compose config --quiet
+            MIN_FREE_DISK_MB=$((10#$MIN_FREE_DISK_MB))
+            available_kb="$(df -Pk "$VPS_DEPLOY_PATH" | awk 'END { print $4 }')"
+            required_kb="$((MIN_FREE_DISK_MB * 1024))"
+            if [ "$available_kb" -lt "$required_kb" ]; then
+              echo "ERROR: only $((available_kb / 1024)) MiB free; need at least $MIN_FREE_DISK_MB MiB." >&2
+              exit 1
+            fi
+            df -h "$VPS_DEPLOY_PATH" >&2
+            previous_sha="$(git rev-parse HEAD)"
+            previous_tag="$(git describe --tags --exact-match HEAD 2>/dev/null || printf 'untagged')"
+            printf '%s\n%s\n' "$previous_sha" "$previous_tag"
+          REMOTE
+          )"
+          previous_sha="$(printf '%s\n' "$state" | sed -n '1p')"
+          previous_tag="$(printf '%s\n' "$state" | sed -n '2p')"
+          if [[ ! "$previous_sha" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "::error::Could not capture the exact previously deployed commit."
+            exit 1
+          fi
+          echo "previous_sha=$previous_sha" >> "$GITHUB_OUTPUT"
+          echo "previous_tag=$previous_tag" >> "$GITHUB_OUTPUT"
+          echo "Captured previous deployment: $previous_tag ($previous_sha)"
+
+      - name: Deploy verified release
+        if: steps.creds.outputs.configured == 'true'
+        env:
+          VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH }}
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_SHA: ${{ steps.source.outputs.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh moonwitness-production env VPS_DEPLOY_PATH="$VPS_DEPLOY_PATH" MW_RELEASE_TAG="$RELEASE_TAG" MW_RELEASE_SHA="$RELEASE_SHA" bash -s <<'REMOTE'
+            set -euo pipefail
+            cd "$VPS_DEPLOY_PATH"
+            git fetch --no-tags origin "refs/tags/$MW_RELEASE_TAG:refs/tags/$MW_RELEASE_TAG"
+            remote_tag_sha="$(git rev-parse "refs/tags/$MW_RELEASE_TAG^{commit}")"
+            if [ "$remote_tag_sha" != "$MW_RELEASE_SHA" ]; then
+              echo "ERROR: release tag resolves to a different commit on the VPS." >&2
+              exit 1
+            fi
+            git checkout --detach "$MW_RELEASE_SHA"
+            test "$(git rev-parse HEAD)" = "$MW_RELEASE_SHA"
+
+            docker compose pull --quiet
+            docker compose up -d --build --remove-orphans
+
+            # Wait for every enabled Compose service (including optional ops
+            # profile services) to be running and healthy before public smoke tests.
+            healthy=0
+            for attempt in $(seq 1 30); do
+              pending=0
+              containers="$(docker compose ps --all --quiet)"
+              if [ -z "$containers" ]; then
+                pending=1
+              else
+                while IFS= read -r container_id; do
+                  [ -z "$container_id" ] && continue
+                  state="$(docker inspect --format '{{.State.Status}}' "$container_id")"
+                  health="$(docker inspect --format '{{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' "$container_id")"
+                  if [ "$state" != "running" ] || { [ "$health" != "healthy" ] && [ "$health" != "none" ]; }; then
+                    pending=1
+                  fi
+                done <<< "$containers"
+              fi
+              if [ "$pending" -eq 0 ]; then
+                healthy=1
+                break
+              fi
+              echo "waiting for enabled Compose services to become healthy (attempt $attempt/30)" >&2
+              sleep 10
+            done
+            if [ "$healthy" -ne 1 ]; then
+              docker compose ps --all >&2
+              docker compose logs --tail=80 --no-log-prefix >&2 || true
+              echo "ERROR: one or more enabled Compose services did not become healthy." >&2
+              exit 1
+            fi
+
+            echo "DEPLOYED_SHA=$(git rev-parse HEAD)"
+            echo "DEPLOYED_TAG=$MW_RELEASE_TAG"
+            docker compose ps --all
+          REMOTE
+
+      - name: Verify public web, Core API, and MID endpoints
+        if: steps.creds.outputs.configured == 'true'
+        env:
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+          PRODUCTION_API_URL: ${{ vars.PRODUCTION_API_URL }}
+          PRODUCTION_IDENTITY_URL: ${{ vars.PRODUCTION_IDENTITY_URL }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          wait_for_http_200() {
+            local label="$1"
+            local url="$2"
+            local output="$3"
+            local code="000"
+            for attempt in $(seq 1 20); do
+              code="$(curl -sS -o "$output" -w '%{http_code}' --connect-timeout 5 --max-time 15 "$url" 2>/dev/null || printf '000')"
+              if [ "$code" = "200" ]; then
+                echo "OK $label ($code)"
+                return 0
+              fi
+              echo "waiting for $label: HTTP $code (attempt $attempt/20)"
+              sleep 10
+            done
+            echo "::error::$label did not return HTTP 200."
+            head -c 500 "$output" || true
+            return 1
+          }
+
+          base_web="${PRODUCTION_URL%/}"
+          base_api="${PRODUCTION_API_URL%/}"
+          base_identity="${PRODUCTION_IDENTITY_URL%/}"
+
+          wait_for_http_200 "web root" "$base_web/" /tmp/mw-web-root.txt
+          wait_for_http_200 "web health" "$base_web/api/health" /tmp/mw-web-health.json
+          wait_for_http_200 "Core API database readiness" "$base_api/api/v1/readyz" /tmp/mw-api-ready.json
+          jq -e '.status == "ready" and .database == "ok"' /tmp/mw-api-ready.json >/dev/null
+
+          wait_for_http_200 "MID OIDC discovery" "$base_identity/.well-known/openid-configuration" /tmp/mw-mid-discovery.json
+          jq -e '(.issuer | type == "string") and (.jwks_uri | type == "string")' /tmp/mw-mid-discovery.json >/dev/null
+          wait_for_http_200 "MID JWKS" "$base_identity/.well-known/jwks.json" /tmp/mw-mid-jwks.json
+          jq -e '(.keys | type == "array") and (.keys | length > 0)' /tmp/mw-mid-jwks.json >/dev/null
+
+      - name: Roll back to exact previous commit on failure
+        if: failure() && steps.creds.outputs.configured == 'true' && steps.preflight.outputs.previous_sha != ''
+        env:
+          VPS_DEPLOY_PATH: ${{ vars.VPS_DEPLOY_PATH }}
+          PREVIOUS_SHA: ${{ steps.preflight.outputs.previous_sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "::warning::Deployment failed. Restoring the exact previous commit $PREVIOUS_SHA."
+          ssh moonwitness-production env VPS_DEPLOY_PATH="$VPS_DEPLOY_PATH" MW_PREVIOUS_SHA="$PREVIOUS_SHA" bash -s <<'REMOTE'
+            set -euo pipefail
+            cd "$VPS_DEPLOY_PATH"
+            git checkout --detach "$MW_PREVIOUS_SHA"
+            test "$(git rev-parse HEAD)" = "$MW_PREVIOUS_SHA"
+            docker compose up -d --build --remove-orphans
+            docker compose ps --all
+            echo "Rollback restored commit $MW_PREVIOUS_SHA"
+          REMOTE
+
+      - name: Clean up SSH material
+        if: always() && steps.creds.outputs.configured == 'true'
+        shell: bash
+        run: rm -f ~/.ssh/id_ed25519 ~/.ssh/known_hosts ~/.ssh/config
+
+      - name: Write deployment summary
+        if: always() && steps.creds.outputs.configured == 'true'
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
+          RELEASE_SHA: ${{ steps.source.outputs.sha }}
+          PREVIOUS_TAG: ${{ steps.preflight.outputs.previous_tag }}
+          PREVIOUS_SHA: ${{ steps.preflight.outputs.previous_sha }}
+          PRODUCTION_URL: ${{ vars.PRODUCTION_URL }}
+          PRODUCTION_API_URL: ${{ vars.PRODUCTION_API_URL }}
+          PRODUCTION_IDENTITY_URL: ${{ vars.PRODUCTION_IDENTITY_URL }}
+          JOB_STATUS: ${{ job.status }}
+        shell: bash
+        run: |
+          {
+            echo "## Deployment Summary"
+            echo "- **Release Tag:** `$RELEASE_TAG`"
+            echo "- **Verified Release SHA:** `$RELEASE_SHA`"
+            echo "- **Previous Release:** `${PREVIOUS_TAG:-unknown}`"
+            echo "- **Previous Exact SHA:** `${PREVIOUS_SHA:-not-captured}`"
+            echo "- **Web:** `$PRODUCTION_URL`"
+            echo "- **Core API readiness:** `${PRODUCTION_API_URL%/}/api/v1/readyz`"
+            echo "- **MID discovery:** `${PRODUCTION_IDENTITY_URL%/}/.well-known/openid-configuration`"
+            echo "- **Job Status:** `$JOB_STATUS`"
+            echo "- **Rollback:** exact previous commit when a preflight SHA was captured; no volume deletion."
+          } >> "$GITHUB_STEP_SUMMARY"

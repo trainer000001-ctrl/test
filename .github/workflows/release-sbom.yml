@@ -1,0 +1,87 @@
+name: Release SBOM & Provenance
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Release tag or commit SHA to attest (defaults to github.ref)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: release-sbom-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sbom-and-provenance:
+    name: Generate SBOM and Release Provenance
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout release ref
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Enable pnpm (corepack)
+        run: |
+          corepack enable
+          corepack prepare "$(node -p "require('./package.json').packageManager")" --activate
+
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production bundles
+        run: pnpm build
+
+      - name: Generate Workspace SBOM & Artifact Manifest
+        run: |
+          mkdir -p dist-release
+          RELEASE_SHA="$(git rev-parse HEAD)"
+          RELEASE_TAG="${{ inputs.ref || github.ref_name }}"
+          pnpm list --recursive --depth=1 --json > dist-release/pnpm-sbom.json
+          cp pnpm-lock.yaml dist-release/pnpm-lock.yaml
+          for svc in services/radius services/snmp-poller services/syslog services/storage; do
+            if [ -f "$svc/Cargo.lock" ]; then
+              cp "$svc/Cargo.lock" "dist-release/$(basename "$svc")-Cargo.lock"
+            fi
+          done
+          cp cp/arsy/go.mod dist-release/arsy-go.mod
+          [ -f cp/arsy/go.sum ] && cp cp/arsy/go.sum dist-release/arsy-go.sum || true
+          cat > dist-release/release-metadata.json <<EOF
+          {
+            "repository": "${{ github.repository }}",
+            "ref": "${RELEASE_TAG}",
+            "sha": "${RELEASE_SHA}",
+            "generated_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+          tar -czf "dist-release/moonwitness-sbom-${RELEASE_SHA}.tar.gz" -C dist-release pnpm-sbom.json pnpm-lock.yaml release-metadata.json
+          sha256sum dist-release/* > dist-release/SHA256SUMS.txt
+
+      - name: Upload SBOM & Checksums Artifact
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-sbom-${{ github.sha }}
+          path: dist-release/
+          retention-days: 90
+
+      - name: Attest Build Provenance (GitHub Artifact Attestations)
+        uses: actions/attest-build-provenance@520d128f165991a6c774bcb264f323e3d70747f4 # v2.2.0
+        continue-on-error: true
+        with:
+          subject-path: |
+            dist-release/moonwitness-sbom-*.tar.gz
+            dist-release/SHA256SUMS.txt
